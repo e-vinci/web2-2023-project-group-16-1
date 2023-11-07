@@ -1,10 +1,7 @@
-import { setAuthenticatedUser } from "../../utils/auths";
-import Navbar from '../Navbar/Navbar';
-import Navigate from '../Router/Navigate';
-
+import { login } from "../../Domain/UserLibrary";
 
 const LoginPage = () => {
-    const login = `<div class="hero min-h-screen bg-base-200">
+    const html = `<div class="hero min-h-screen bg-base-200">
     <div class="hero-content flex-col lg:flex-row-reverse">
       <div class="text-center lg:text-left">
         <h1 class="text-5xl font-bold">Login now!</h1>
@@ -16,13 +13,13 @@ const LoginPage = () => {
             <label class="label">
               <span class="label-text">Email</span>
             </label>
-            <input id="email" type="email" placeholder="email" class="input input-bordered" required />
+            <input id="emaillog" type="email" placeholder="email" class="input input-bordered" required />
           </div>
           <div class="form-control">
             <label class="label">
               <span class="label-text">Password</span>
             </label>
-            <input id="password" type="password" placeholder="password" class="input input-bordered" required />
+            <input id="pwdlog" type="password" placeholder="password" class="input input-bordered" required />
             <label class="label">
               <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
             </label>
@@ -35,53 +32,9 @@ const LoginPage = () => {
     </div>
   </div>`
     const main = document.querySelector('main');
-    main.innerHTML = login;
+    main.innerHTML = html;
 
-    const btn = document.getElementById("loginbtn");
-    btn.addEventListener("click", async(e) =>{
-      e.preventdefault();
-      
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      const newData={
-        email,
-        password
-      }
-
-      try {
-        const options = {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          body: JSON.stringify(newData),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-
-        const reponse = await fetch(`/api/auths/login`, options);
-        if (!reponse.ok) {
-                    throw new Error(
-            // eslint-disable-next-line no-irregular-whitespace
-            `fetch error : ${reponse.status} : ${reponse.statusText}`,
-          );
-        }
-
-        const user = await reponse.json();
-
-        // sets the Authenticated user to the actual user
-        await setAuthenticatedUser(user);
-
-        // reloads Navbar (display is different when user logged in)
-        await Navbar();
-
-        // navigte to homePage
-        // clearActive();
-        await Navigate('/');
-      } catch (err) {
-        // eslint-disable-next-line
-        console.error('error: ', err);
-      }
-    });
+    login();
   }
   
   export default LoginPage;
