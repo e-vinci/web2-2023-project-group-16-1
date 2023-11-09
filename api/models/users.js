@@ -5,13 +5,13 @@ const PocketBase = require('pocketbase/cjs');
 const pb = new PocketBase('https://pocketbasehop.hop.sh');
 
 async function register(username, email, password, passwordConfirm) {
-  const data = {
+  const user = {
     'username': username,
     'email': email,
     'password': password,
     'passwordConfirm': passwordConfirm,
   };
-  const record = await pb.collection('users').create(data);
+  const record = await pb.collection('users').create(user);
   return record;
 }
 
