@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-unresolved
 const PocketBase = require('pocketbase/cjs');
 
-const pb = new PocketBase('https://pocketbasehop.hop.sh');
+const pb = new PocketBase('https://socialsync.hop.sh');
 
 async function register(username, email, password, passwordConfirm) {
   const user = {
