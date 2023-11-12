@@ -4,6 +4,8 @@ const PocketBase = require('pocketbase/cjs');
 
 const pb = new PocketBase('https://socialsync.hop.sh');
 
+let currentUser;
+
 async function register(username, email, password, passwordConfirm) {
   const user = {
     username,
@@ -26,16 +28,19 @@ async function login(email, password) {
   let authData;
   try {
     authData = await pb.collection('users').authWithPassword(email, password);
+    currentUser = authData;
   } catch (error) {
     return error;
   }
-
-  console.log(pb.authStore.model.username);
-
   return authData;
+}
+
+async function getCurrentUser() {
+  return currentUser;
 }
 
 module.exports = {
   register,
   login,
+  getCurrentUser,
 };

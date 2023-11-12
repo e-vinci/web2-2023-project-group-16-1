@@ -5,8 +5,8 @@ POST {{baseUrl}}/auths/register
 Content-Type: application/json
 
 {
-    "username":"user1",
-    "email":"user1@gmail.com",
+    "username":"user2",
+    "email":"user2@gmail.com",
     "password":"azqwazqw",
     "passwordConfirm":"azqwazqw"
 }
@@ -20,7 +20,7 @@ Content-Type: application/json
     "password":"azqwazqw"
 }
 
-### Login a user
+### Login a user 1
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
 
@@ -29,12 +29,20 @@ Content-Type: application/json
     "password":"azqwazqw"
 }
 
-### subscribe to influancer
+### Login a user 2
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "email":"user2@gmail.com",
+    "password":"azqwazqw"
+}
+
+### subscribe to influencer
 POST {{baseUrl}}/users/subscribe
 Content-Type: application/json
 
 {
-    "username":"user1",
     "url":"https://www.twitch.tv/mistermv"
 }
 
