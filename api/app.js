@@ -8,6 +8,7 @@ const corsOptions = {
 };
 
 const authsRouter = require('./routes/auths');
+const usersRouter = require('./routes/users');
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 
 app.use('/auths', authsRouter);
+app.use('/users', usersRouter);
 
 module.exports = app;

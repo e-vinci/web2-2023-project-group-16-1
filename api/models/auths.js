@@ -30,6 +30,8 @@ async function login(email, password) {
     return error;
   }
 
+  console.log(pb.authStore.model.username);
+
   return authData;
 }
 
