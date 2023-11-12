@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 const express = require('express');
-const { register, login } = require('../models/users');
+const { register, login } = require('../models/auths');
 
 const router = express.Router();
 
