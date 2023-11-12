@@ -11,6 +11,15 @@ Content-Type: application/json
     "passwordConfirm":"azqwazqw"
 }
 
+### Login wrong user
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "email":"user@gmail.com",
+    "password":"azqwazqw"
+}
+
 ### Login a user
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
