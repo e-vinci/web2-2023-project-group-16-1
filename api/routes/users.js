@@ -21,11 +21,11 @@ router.post('/unsubscribe', async (req, res) => {
 
   if (!url) return res.sendStatus(400); // 400 Bad Request
 
-  const subscription = await unSubscribe(url);
+  const unsubscription = await unSubscribe(url);
 
-  if (!subscription) return res.sendStatus(500);
+  if (!unsubscription) return res.sendStatus(500);
 
-  return res.json(subscription);
+  return res.json(unsubscription);
 });
 
 module.exports = router;
