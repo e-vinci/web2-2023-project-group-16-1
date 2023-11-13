@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:3000
+
+### Login a user 2
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "email":"user2@gmail.com",
+    "password":"azqwazqw"
+}
+
+### get influencers
+GET {{baseUrl}}/dbUtils/
+Content-Type: application/json
