@@ -29,11 +29,6 @@ Content-Type: application/json
     "password":"azqwazqw"
 }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
 ### Login a user 2
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
@@ -42,13 +37,3 @@ Content-Type: application/json
     "email":"user2@gmail.com",
     "password":"azqwazqw"
 }
-
-### subscribe to influencer
-POST {{baseUrl}}/users/subscribe
-Content-Type: application/json
-
-{
-    "url":"https://www.twitch.tv/mistermv"
-}
-
->>>>>>> 14e75bf4f431f1063b19e7d03d8fa00f10718aa3
