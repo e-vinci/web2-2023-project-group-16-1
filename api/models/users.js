@@ -6,7 +6,6 @@ const pb = new PocketBase('https://socialsync.hop.sh');
 
 const { getCurrentUser } = require('./auths');
 
-// eslint-disable-next-line no-unused-vars
 async function subscribe(url) {
   const urlObject = await pb.collection('urls').getFullList({
     filter: `url = "${url}"`,
@@ -29,6 +28,36 @@ async function subscribe(url) {
   return record;
 }
 
+async function unSubscribe(url) {
+  const urlObject = await pb.collection('urls').getFullList({
+    filter: `url = "${url}"`,
+  });
+
+  const currentUser = await getCurrentUser();
+
+  const data = {
+    user: currentUser.record.id,
+    url: urlObject[0].id,
+  };
+
+  const subscriptionObject = await pb.collection('subscriptions').getFullList({
+    filter: `url = "${data.url}" && user = "${data.user}"`,
+  });
+
+  let record;
+
+  try {
+    record = await pb.collection('subscriptions').delete(
+      subscriptionObject[0].id,
+    );
+  } catch (error) {
+    return error;
+  }
+
+  return record;
+}
+
 module.exports = {
   subscribe,
+  unSubscribe,
 };
