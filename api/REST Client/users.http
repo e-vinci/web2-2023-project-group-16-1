@@ -1,2 +1,10 @@
 @baseUrl = http://localhost:3000
 
+### subscribe to influancer
+POST {{baseUrl}}/users/subscribe
+Content-Type: application/json
+
+{
+    "username":"user1",
+    "url":"https://www.twitch.tv/mistermv"
+}
