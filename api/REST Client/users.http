@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:3000
 
-### Login a user 2
+### Login user 2
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
 
@@ -9,20 +9,18 @@ Content-Type: application/json
     "password":"azqwazqw"
 }
 
-### subscribe to influancer
+### subscribe to influencer
 POST {{baseUrl}}/users/subscribe
 Content-Type: application/json
 
 {
-    "username":"user2",
     "url":"https://www.twitch.tv/mistermv"
 }
 
-### unsubscribe to influancer
+### unsubscribe to influencer
 POST {{baseUrl}}/users/unsubscribe
 Content-Type: application/json
 
 {
-    "username":"user2",
     "url":"https://www.twitch.tv/mistermv"
 }

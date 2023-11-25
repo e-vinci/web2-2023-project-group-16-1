@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:3000
 
-### Login a user 2
+### Login user 2
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
 

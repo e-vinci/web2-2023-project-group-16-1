@@ -28,7 +28,7 @@ async function login(email, password) {
   let authData;
   try {
     authData = await pb.collection('users').authWithPassword(email, password);
-    currentUser = authData;
+    currentUser = pb.authStore.model;
   } catch (error) {
     return error;
   }

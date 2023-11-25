@@ -14,7 +14,7 @@ async function subscribe(url) {
   const currentUser = await getCurrentUser();
 
   const data = {
-    user: currentUser.record.id,
+    user: currentUser.id,
     url: urlObject[0].id,
   };
 
@@ -36,7 +36,7 @@ async function unSubscribe(url) {
   const currentUser = await getCurrentUser();
 
   const data = {
-    user: currentUser.record.id,
+    user: currentUser.id,
     url: urlObject[0].id,
   };
 
