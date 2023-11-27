@@ -1,13 +1,13 @@
 import HomePage from '../Pages/HomePage';
 import LoginPage from '../Pages/LoginPage';
 import RegisterPage from '../Pages/RegisterPage';
-import NewPage from '../Pages/NewPage';
+import AccountSettingsPage from '../Pages/AccountSettingsPage';
 
 const routes = {
   '/': HomePage,
   '/login': LoginPage,
   '/register': RegisterPage,
-  '/new': NewPage,
+  '/settings': AccountSettingsPage
 };
 
 export default routes;
