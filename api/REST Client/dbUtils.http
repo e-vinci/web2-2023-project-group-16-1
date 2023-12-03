@@ -9,6 +9,9 @@ Content-Type: application/json
     "password":"azqwazqw"
 }
 
-### get influencers
+### get all influencers
 GET {{baseUrl}}/dbUtils/
 Content-Type: application/json
+
+### get influencer 00kxxc57xme81j3
+GET {{baseUrl}}/dbUtils/00kxxc57xme81j3
