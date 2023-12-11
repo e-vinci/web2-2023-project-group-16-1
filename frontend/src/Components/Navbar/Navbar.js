@@ -18,7 +18,7 @@ const Navbar = () => {
       <li><a href="#" data-uri="/">Home</a></li>
       <li><a href="#" data-uri="/login">Login</a></li>
       <li><a href="#" data-uri="/register">Register</a></li>
-      <li><a href="#" data-uri="/register">account page</a></li>
+      <li><a href="#" data-uri="/settings">Account</a></li>
     </ul>
   </div>
 </div>
