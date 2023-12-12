@@ -6,22 +6,28 @@ const router = express.Router();
 
 /* Register a user */
 router.post('/register', async (req, res) => {
-  const username = req?.body?.username?.length !== 0 ? req.body.username : undefined;
   const email = req?.body?.email?.length !== 0 ? req.body.email : undefined;
+  const username = req?.body?.username?.length !== 0 ? req.body.username : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
   const passwordConfirm = req?.body?.passwordConfirm?.length !== 0 ? req.body.passwordConfirm : undefined;
 
-  if (!username || !email || !password || !passwordConfirm) return res.sendStatus(400); // 400 Bad Request
+  if (!username || !email || !password || !passwordConfirm || password.length < 8) {
+    return res.sendStatus(400); // 400 Bad Request
+  }
 
-  const authenticatedUser = await register(username, email, password, passwordConfirm);
+  const authenticatedUser = await register(email, username, password, passwordConfirm);
 
-  if (!authenticatedUser) return res.sendStatus(409); // 409 Conflict
+  if (!authenticatedUser) {
+    return res.sendStatus(409); // 409 Conflict
+  }
 
   return res.json(authenticatedUser);
 });
 
 /* Login a user */
 router.post('/login', async (req, res) => {
+  console.log(req.body);
+
   const email = req?.body?.email?.length !== 0 ? req.body.email : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
