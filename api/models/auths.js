@@ -6,10 +6,14 @@ const pb = new PocketBase('https://socialsync.hop.sh');
 
 let currentUser;
 
-async function register(username, email, password, passwordConfirm) {
+async function register(email, username, password, passwordConfirm) {
+  if (password !== passwordConfirm) {
+    return undefined;
+  }
+
   const user = {
-    username,
     email,
+    username,
     password,
     passwordConfirm,
   };
@@ -18,9 +22,10 @@ async function register(username, email, password, passwordConfirm) {
   try {
     record = await pb.collection('users').create(user);
   } catch (error) {
-    return error;
-  }
+    console.log(error);
 
+    return undefined;
+  }
   return record;
 }
 
