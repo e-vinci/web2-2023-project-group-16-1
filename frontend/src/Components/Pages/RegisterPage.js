@@ -15,7 +15,7 @@ const RegisterPage = () => {
           <label class="label">
             <span class="label-text">Username</span>
           </label>
-          <input id="passwordreg" placeholder="username" class="input input-bordered" required />
+          <input id="usernamereg" placeholder="username" class="input input-bordered" required />
         </div>
         <div class="form-control">
           <label class="label">
