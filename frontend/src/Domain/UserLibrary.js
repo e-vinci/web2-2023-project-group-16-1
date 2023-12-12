@@ -70,10 +70,14 @@ async function register(){
       // const lastname = document.getElementById('nom').value;
       // const firstname = document.getElementById('prenom').value;
       const email = document.getElementById('emailreg').value;
+      const username = document.getElementById('usernamereg').value;
       const password = document.getElementById('pwdreg').value;
+      const passwordConfirm = document.getElementById('pwdConfirmreg').value;
+    
       // const passwordConfirmed = document.getElementById('pwdreg2').value;
 
       // If values are undifined
+      /*
       if (
         // lastname.value === undefined ||
         // firstname.value === undefined ||
@@ -84,6 +88,7 @@ async function register(){
         // eslint-disable-next-line no-console
         console.log("complete all fields");
       }
+      */
 
       /* if (password !== passwordConfirmed) {
         console.log("passwords dont match");
@@ -95,8 +100,9 @@ async function register(){
         // lastname,
         // firstname,
         email,
+        username,
         password,
-        // passwordConfirmed
+        passwordConfirm
       };
 
       try {
@@ -111,7 +117,9 @@ async function register(){
         const reponse = await fetch(`/api/auths/register`, options);
 
         if (!reponse.ok) {
-          throw new Error(`fetch error : ${reponse.status}${reponse.statusText}`);
+          console.log('Error')
+            
+          throw new Error(`fetch error : ${reponse.status} ${reponse.statusText}`);
         }
         // clearActive();
         Navigate('/login');
