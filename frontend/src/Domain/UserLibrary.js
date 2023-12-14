@@ -1,83 +1,74 @@
-import Navbar from "../Components/Navbar/Navbar";
-import Navigate from "../Components/Router/Navigate";
-import { setAuthenticatedUser } from "../utils/auths";
+import Navbar from '../Components/Navbar/Navbar';
+import Navigate from '../Components/Router/Navigate';
+import { setAuthenticatedUser } from '../utils/auths';
 
 async function login() {
-const btn = document.getElementById("loginbtn");
-    btn.addEventListener("click", async(e) =>{
-      e.preventdefault();
-      
-      const email = document.getElementById("emaillog").value;
-      const password = document.getElementById("pwdlog").value;
+  const btn = document.getElementById('loginbtn');
+  btn.addEventListener('click', async (e) => {
+    e.preventdefault();
 
-      const newData={
-        email,
-        password
-      }
+    const email = document.getElementById('emaillog').value;
+    const password = document.getElementById('pwdlog').value;
 
-      try {
-        const options = {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          body: JSON.stringify(newData),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
+    const newData = {
+      email,
+      password,
+    };
 
-        const reponse = await fetch(`/api/auths/login`, options);
-        if (!reponse.ok) {
-                    throw new Error(
-            // eslint-disable-next-line no-irregular-whitespace
-            `fetch error : ${reponse.status} : ${reponse.statusText}`,
-          );
-        }
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(newData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-        const user = await reponse.json();
+    const reponse = await fetch(`/api/auths/login`, options);
+    if (!reponse.ok) {
+      throw new Error(`fetch error : ${reponse.status} : ${reponse.statusText}`);
+    } else {
+      const user = await reponse.json();
 
-        // sets the Authenticated user to the actual user
-        await setAuthenticatedUser(user);
+      // sets the Authenticated user to the actual user
+      await setAuthenticatedUser(user);
 
-        // reloads Navbar (display is different when user logged in)
-        await Navbar();
+      // reloads Navbar (display is different when user logged in)
+      await Navbar();
 
-        // navigte to homePage
-        // clearActive();
-        await Navigate('/');
-      } catch (err) {
-        // eslint-disable-next-line
-        console.error('error: ', err);
-      }
-    });
-  }
+      // navigte to homePage
+      // clearActive();
+      await Navigate('/');
+    }
+  });
+}
 
+async function register() {
+  const btn = document.getElementById('register');
+  // const btnLogin = document.getElementById('login');
 
-async function register(){
-    const btn = document.getElementById('register');
-    // const btnLogin = document.getElementById('login');
-
-    /* btnLogin.addEventListener('click', async (e) => {
+  /* btnLogin.addEventListener('click', async (e) => {
       e.preventDefault();
       clearActive();
       Navigate('/login');
     });
     */
 
-    // Adding the user after pressing the submit button
-    btn.addEventListener('click', async (e) => {
-      e.preventDefault();
+  // Adding the user after pressing the submit button
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
 
-      // Recovery of all data with id
-      // const lastname = document.getElementById('nom').value;
-      // const firstname = document.getElementById('prenom').value;
-      const email = document.getElementById('emailreg').value;
-      const username = document.getElementById('usernamereg').value;
-      const password = document.getElementById('pwdreg').value;
-      const passwordConfirm = document.getElementById('pwdConfirmreg').value;
-    
-      // const passwordConfirmed = document.getElementById('pwdreg2').value;
+    // Recovery of all data with id
+    // const lastname = document.getElementById('nom').value;
+    // const firstname = document.getElementById('prenom').value;
+    const email = document.getElementById('emailreg').value;
+    const username = document.getElementById('usernamereg').value;
+    const password = document.getElementById('pwdreg').value;
+    const passwordConfirm = document.getElementById('pwdConfirmreg').value;
 
-      // If values are undifined
-      /*
+    // const passwordConfirmed = document.getElementById('pwdreg2').value;
+
+    // If values are undifined
+    /*
       if (
         // lastname.value === undefined ||
         // firstname.value === undefined ||
@@ -90,45 +81,42 @@ async function register(){
       }
       */
 
-      /* if (password !== passwordConfirmed) {
+    /* if (password !== passwordConfirmed) {
         console.log("passwords dont match");
       }
       */
 
-      // Creation of a new json object
-      const newData = {
-        // lastname,
-        // firstname,
-        email,
-        username,
-        password,
-        passwordConfirm
+    // Creation of a new json object
+    const newData = {
+      // lastname,
+      // firstname,
+      email,
+      username,
+      password,
+      passwordConfirm,
+    };
+
+    try {
+      const options = {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        body: JSON.stringify(newData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       };
 
-      try {
-        const options = {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          body: JSON.stringify(newData),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
+      const reponse = await fetch(`/api/auths/register`, options);
 
-        const reponse = await fetch(`/api/auths/register`, options);
-
-        if (!reponse.ok) {
-          console.log('Error')
-            
-          throw new Error(`fetch error : ${reponse.status} ${reponse.statusText}`);
-        }
-        // clearActive();
-        Navigate('/login');
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error('error: ', err);
+      if (!reponse.ok) {
+        throw new Error(`fetch error : ${reponse.status} : ${reponse.statusText}`);
       }
-    });
-  }
+      // clearActive();
+      Navigate('/login');
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('error: ', err);
+    }
+  });
+}
 
-
-  export {login, register};
+export { login, register };
