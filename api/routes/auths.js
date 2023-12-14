@@ -11,8 +11,12 @@ router.post('/register', async (req, res) => {
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
   const passwordConfirm = req?.body?.passwordConfirm?.length !== 0 ? req.body.passwordConfirm : undefined;
 
-  if (!username || !email || !password || !passwordConfirm || password.length < 8) {
+  if (!username || !email || !password || !passwordConfirm) {
     return res.sendStatus(400); // 400 Bad Request
+  }
+
+  if (password.length < 8) {
+    return res.json('Mdp trop cours').status(400);
   }
 
   const authenticatedUser = await register(email, username, password, passwordConfirm);
