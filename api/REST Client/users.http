@@ -1,12 +1,12 @@
 @baseUrl = http://localhost:3000
 
-### Login user 2
+### Login user 3
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
 
 {
-    "email":"user2@gmail.com",
-    "password":"azqwazqw"
+    "email":"test@3.be",
+    "password":"12345"
 }
 
 ### subscribe to influencer
@@ -14,7 +14,8 @@ POST {{baseUrl}}/users/subscribe
 Content-Type: application/json
 
 {
-    "url":"https://www.twitch.tv/mistermv"
+    "influencer":"Zerator",
+    "platform":"Twiter / X"
 }
 
 ### unsubscribe to influencer
@@ -22,5 +23,10 @@ POST {{baseUrl}}/users/unsubscribe
 Content-Type: application/json
 
 {
-    "url":"https://www.twitch.tv/mistermv"
+    "influencer":"Zerator",
+    "platform":"Twiter / X"
 }
+
+### unsubscribe to influencer
+GET {{baseUrl}}/users/
+Content-Type: application/json
