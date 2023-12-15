@@ -1,9 +1,6 @@
-/* eslint-disable quote-props */
-// eslint-disable-next-line import/no-unresolved
-const PocketBase = require('pocketbase/cjs');
+const { getClient, postgresConnexion } = require('../utils/postgres');
 
-const pb = new PocketBase('https://socialsync.hop.sh');
-
+let client = getClient();
 let currentUser;
 
 async function register(email, username, password, passwordConfirm) {
@@ -11,33 +8,62 @@ async function register(email, username, password, passwordConfirm) {
     return undefined;
   }
 
-  const user = {
-    email,
-    username,
-    password,
-    passwordConfirm,
-  };
-
-  let record;
   try {
-    record = await pb.collection('users').create(user);
-  } catch (error) {
-    console.log(error);
+    if (!client) {
+      client = postgresConnexion();
+    }
 
+    const query = {
+      text: 'SELECT projetWeb.register($1, $2, $3);',
+      values: [username, email, password],
+    };
+
+    const res = await client.query(query);
+
+    console.log(res.rows);
+
+    return res.rows;
+  } catch (err) {
+    console.error(err);
     return undefined;
   }
-  return record;
 }
 
 async function login(email, password) {
-  let authData;
   try {
-    authData = await pb.collection('users').authWithPassword(email, password);
-    currentUser = pb.authStore.model;
-  } catch (error) {
-    return error;
+    if (!client) {
+      client = postgresConnexion();
+    }
+
+    const query = {
+      text: 'SELECT projetWeb.authanticate($1, $2);',
+      values: [email, password],
+    };
+
+    const res = await client.query(query);
+    const userId = res.rows[0].authanticate;
+
+    const user = await setUser(userId);
+
+    return user;
+  } catch (err) {
+    console.error(err);
+    return undefined;
   }
-  return authData;
+}
+
+async function setUser(idUser) {
+  const query = {
+    text: 'SELECT * FROM projetWeb.userInfo WHERE id_user = $1;',
+    values: [idUser],
+  };
+
+  const res = await client.query(query);
+
+  const user = res.rows[0];
+  currentUser = user;
+
+  return currentUser;
 }
 
 async function getCurrentUser() {
