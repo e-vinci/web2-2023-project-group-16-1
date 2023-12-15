@@ -1,64 +1,60 @@
-/* eslint-disable quote-props */
-// eslint-disable-next-line import/no-unresolved
-const PocketBase = require('pocketbase/cjs');
+const { getClient, postgresConnexion } = require('../utils/postgres');
 
-const pb = new PocketBase('https://socialsync.hop.sh');
+let client = getClient();
 
 async function getInfluencers() {
-  const listInfluencers = [];
-
+  const influencerList = [];
   try {
-    const influencersObject = await pb.collection('influencers').getFullList({
-      sort: '+name',
-    });
+    if (!client) {
+      client = postgresConnexion();
+    }
 
-    influencersObject.forEach((influencer) => {
-      listInfluencers.push(influencer.name);
+    const query = {
+      text: 'SELECT * FROM projetWeb.allInfluencers;',
+    };
+
+    const res = await client.query(query);
+
+    res.rows.forEach((influencerObject) => {
+      influencerList.push(influencerObject.nom);
     });
-  } catch (error) {
-    return error;
+  } catch (err) {
+    console.error(err);
   }
-
-  return listInfluencers;
+  return influencerList;
 }
 
 async function getInfluencerInformation(idInfluenceur) {
-  const dico = {};
+  let influencerInfo = {};
+  const platformList = [];
 
   try {
-    const influenceursObject = await pb.collection('influencers').getFullList({
-      filter: `id = "${idInfluenceur}"`,
+    if (!client) {
+      client = postgresConnexion();
+    }
+
+    const query = {
+      text: 'SELECT * FROM projetWeb.infoInfluencer WHERE id_influencer = $1;',
+      values: [idInfluenceur],
+    };
+
+    const res = await client.query(query);
+
+    influencerInfo = {
+      idInfluencer: res.rows[0].id_influencer,
+      name: res.rows[0].influencer,
+      description: res.rows[0].description,
+    };
+
+    res.rows.forEach((influencerObject) => {
+      platformList.push(influencerObject.platform);
     });
-    const influenceur = influenceursObject[0];
-    dico.influencuer = influenceur;
-
-    const listPlaforme = await pb.collection('platforms').getFullList({
-      filter: '+name',
-    });
-
-    console.log(listPlaforme);
-
-    const urls = await pb.collection('urls').getFullList({
-      filter: `influenceur = "${idInfluenceur}"`,
-    });
-
-    console.log(urls);
-
-    const platforms = {};
-    listPlaforme.forEach((platform) => {
-      urls.forEach((url) => {
-        if (url.includes(platform.toLowerCase())) {
-          platforms[platform.name] = url.url;
-        }
-      });
-    });
-    dico.platforms = platforms;
-  } catch (error) {
-    return error;
+  } catch (err) {
+    console.error(err);
   }
+  influencerInfo.platforms = platformList;
 
-  console.log(`dico = ${dico}`);
-  return dico;
+  return influencerInfo;
 }
 
 module.exports = {
