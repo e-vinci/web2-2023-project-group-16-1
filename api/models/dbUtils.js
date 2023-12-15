@@ -18,14 +18,15 @@ async function getInfluencers() {
     res.rows.forEach((influencerObject) => {
       influencerList.push(influencerObject.nom);
     });
+
+    return influencerList;
   } catch (err) {
     console.error(err);
+    return undefined;
   }
-  return influencerList;
 }
 
 async function getInfluencerInformation(idInfluenceur) {
-  let influencerInfo = {};
   const platformList = [];
 
   try {
@@ -40,7 +41,7 @@ async function getInfluencerInformation(idInfluenceur) {
 
     const res = await client.query(query);
 
-    influencerInfo = {
+    const influencerInfo = {
       idInfluencer: res.rows[0].id_influencer,
       name: res.rows[0].influencer,
       description: res.rows[0].description,
@@ -49,12 +50,14 @@ async function getInfluencerInformation(idInfluenceur) {
     res.rows.forEach((influencerObject) => {
       platformList.push(influencerObject.platform);
     });
+
+    influencerInfo.platforms = platformList;
+
+    return influencerInfo;
   } catch (err) {
     console.error(err);
+    return undefined;
   }
-  influencerInfo.platforms = platformList;
-
-  return influencerInfo;
 }
 
 module.exports = {
