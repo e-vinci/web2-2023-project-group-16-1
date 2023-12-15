@@ -5,10 +5,21 @@ POST {{baseUrl}}/auths/register
 Content-Type: application/json
 
 {
-    "username":"user3",
-    "email":"user3@gmail.com",
-    "password":"azqwazqw",
-    "passwordConfirm":"azqwazqw"
+    "username":"test 3",
+    "email":"test@3.be",
+    "password":"12345",
+    "passwordConfirm":"12345"
+}
+
+### Create a user that allredy existe
+POST {{baseUrl}}/auths/register
+Content-Type: application/json
+
+{
+    "username":"test 1",
+    "email":"test@1.be",
+    "password":"azqwazqR",
+    "passwordConfirm":"azqwazqR"
 }
 
 ### Login wrong user
@@ -16,17 +27,8 @@ POST {{baseUrl}}/auths/login
 Content-Type: application/json
 
 {
-    "email":"user@gmail.com",
-    "password":"azqwazqw"
-}
-
-### Login user 3
-POST {{baseUrl}}/auths/login
-Content-Type: application/json
-
-{
-    "email":"user3@gmail.com",
-    "password":"azqwazqw"
+    "email":"test@1.be",
+    "password":"12346"
 }
 
 ### Login user 2
@@ -34,6 +36,6 @@ POST {{baseUrl}}/auths/login
 Content-Type: application/json
 
 {
-    "email":"user2@gmail.com",
-    "password":"azqwazqw"
+    "email":"test@2.be",
+    "password":"12345"
 }
