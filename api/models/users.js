@@ -1,5 +1,4 @@
 const { getClient, postgresConnexion } = require('../utils/postgres');
-const { getCurrentUser } = require('./auths');
 
 let client = getClient();
 
