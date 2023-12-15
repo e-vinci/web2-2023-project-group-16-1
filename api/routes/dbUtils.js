@@ -13,13 +13,13 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  const influenceurInfo = getInfluencerInformation(req?.params?.id);
+  const influencerInfo = await getInfluencerInformation(req?.params?.id);
 
-  if (!influenceurInfo) {
+  if (!influencerInfo) {
     return res.sendStatus(500);
   }
 
-  return res.json(influenceurInfo);
+  return res.json(influencerInfo);
 });
 
 module.exports = router;
