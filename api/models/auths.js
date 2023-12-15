@@ -20,8 +20,6 @@ async function register(email, username, password, passwordConfirm) {
 
     const res = await client.query(query);
 
-    console.log(res.rows);
-
     return res.rows;
   } catch (err) {
     console.error(err);
