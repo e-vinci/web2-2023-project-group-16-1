@@ -18,11 +18,12 @@ router.post('/subscribe', async (req, res) => {
 });
 
 router.post('/unsubscribe', async (req, res) => {
-  const url = req?.body?.url?.length !== 0 ? req.body.url : undefined;
+  const influencer = req?.body?.influencer?.length !== 0 ? req.body.influencer : undefined;
+  const platform = req?.body?.platform?.length !== 0 ? req.body.platform : undefined;
 
-  if (!url) return res.sendStatus(400); // 400 Bad Request
+  if (!influencer || !platform) return res.sendStatus(400); // 400 Bad Request
 
-  const unsubscription = await unSubscribe(url);
+  const unsubscription = await unSubscribe(influencer, platform);
 
   if (!unsubscription) return res.sendStatus(500);
 
@@ -30,7 +31,7 @@ router.post('/unsubscribe', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const subscriptions = getSubscriptions(req?.params?.id);
+  const subscriptions = await getSubscriptions(req?.params?.id);
 
   if (!subscriptions) {
     return res.sendStatus(500);
