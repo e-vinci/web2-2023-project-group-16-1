@@ -15,10 +15,6 @@ router.post('/register', async (req, res) => {
     return res.sendStatus(400); // 400 Bad Request
   }
 
-  if (password.length < 8) {
-    return res.json('Mdp trop cours').status(400);
-  }
-
   const authenticatedUser = await register(email, username, password, passwordConfirm);
 
   if (!authenticatedUser) {
@@ -30,8 +26,6 @@ router.post('/register', async (req, res) => {
 
 /* Login a user */
 router.post('/login', async (req, res) => {
-  console.log(req.body);
-
   const email = req?.body?.email?.length !== 0 ? req.body.email : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
