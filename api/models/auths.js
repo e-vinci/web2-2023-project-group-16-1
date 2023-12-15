@@ -1,8 +1,11 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const { getClient, postgresConnexion } = require('../utils/postgres');
 
 const jwtSecret = 'tmtcpoto!';
 const lifetimeJwt = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
+
+const saltRounds = 10;
 
 let client = getClient();
 
@@ -16,9 +19,11 @@ async function register(email, username, password, passwordConfirm) {
       client = postgresConnexion();
     }
 
+    const pwdHash = await bcrypt.hash(password, saltRounds);
+
     const query = {
       text: 'SELECT projetWeb.register($1, $2, $3);',
-      values: [username, email, password],
+      values: [username, email, pwdHash],
     };
 
     const res = await client.query(query);
@@ -37,20 +42,17 @@ async function login(email, password) {
     }
 
     const query = {
-      text: 'SELECT projetWeb.authanticate($1, $2);',
-      values: [email, password],
+      text: 'SELECT * FROM projetWeb.userAuth WHERE email = $1;',
+      values: [email],
     };
 
     const res = await client.query(query);
+    const user = res.rows[0];
 
-    const userId = res.rows[0].authanticate;
-
-    const user = await setUser(userId);
-
-    if (!user) {
+    const passwordMatch = await bcrypt.compare(password, user.mdp_hash);
+    if (!passwordMatch) {
       return undefined;
     }
-    console.log(user);
 
     const token = jwt.sign(
       { id: user.id_user }, // session data added to the payload (payload : part 2 of a JWT)
@@ -66,23 +68,6 @@ async function login(email, password) {
     console.log(authenticatedUser);
 
     return authenticatedUser;
-  } catch (err) {
-    console.error(err);
-    return undefined;
-  }
-}
-
-async function setUser(idUser) {
-  try {
-    const query = {
-      text: 'SELECT * FROM projetWeb.userInfo WHERE id_user = $1;',
-      values: [idUser],
-    };
-    const res = await client.query(query);
-
-    const user = res.rows[0];
-
-    return user;
   } catch (err) {
     console.error(err);
     return undefined;
