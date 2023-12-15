@@ -9,9 +9,11 @@ async function subscribe(influencer, platform) {
       client = postgresConnexion();
     }
 
+    const user = await getCurrentUser();
+
     const query = {
       text: 'SELECT projetWeb.subscribeTo($1, $2, $3);',
-      values: [getCurrentUser().id_user, influencer, platform],
+      values: [user.id_user, influencer, platform],
     };
 
     const res = await client.query(query);
@@ -28,15 +30,16 @@ async function unSubscribe(influencer, platform) {
     if (!client) {
       client = postgresConnexion();
     }
+    const user = await getCurrentUser();
 
     const query = {
-      text: 'SELECT projetWeb.projetWeb.unSubscribe($1, $2, $3);',
-      values: [getCurrentUser().id_user, influencer, platform],
+      text: 'SELECT projetWeb.unSubscribe($1, $2, $3);',
+      values: [user.id_user, influencer, platform],
     };
 
     const res = await client.query(query);
 
-    return res;
+    return res.rows[0];
   } catch (err) {
     console.error(err);
     return undefined;
@@ -48,15 +51,18 @@ async function getSubscriptions() {
     if (!client) {
       client = postgresConnexion();
     }
+    const user = await getCurrentUser();
 
     const query = {
       text: 'SELECT * FROM projetWeb.listSubscription WHERE id_user = $1;',
-      values: [getCurrentUser().id_user],
+      values: [user.id_user],
     };
 
     const res = await client.query(query);
 
-    return res;
+    const listSubscription = res.rows;
+
+    return listSubscription;
   } catch (err) {
     console.error(err);
     return undefined;
