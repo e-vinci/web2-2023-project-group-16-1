@@ -1,63 +1,70 @@
-/* eslint-disable quote-props */
-// eslint-disable-next-line import/no-unresolved
-const PocketBase = require('pocketbase/cjs');
-
-const pb = new PocketBase('https://socialsync.hop.sh');
-
+const { getClient, postgresConnexion } = require('../utils/postgres');
 const { getCurrentUser } = require('./auths');
 
-async function subscribe(url) {
-  const urlObject = await pb.collection('urls').getFullList({
-    filter: `url = "${url}"`,
-  });
+let client = getClient();
 
-  const currentUser = await getCurrentUser();
-
-  const data = {
-    user: currentUser.id,
-    url: urlObject[0].id,
-  };
-
-  let record;
+async function subscribe(influencer, platform) {
   try {
-    record = await pb.collection('subscriptions').create(data);
-  } catch (error) {
-    return error;
-  }
+    if (!client) {
+      client = postgresConnexion();
+    }
 
-  return record;
+    const query = {
+      text: 'SELECT projetWeb.subscribeTo($1, $2, $3);',
+      values: [getCurrentUser().id_user, influencer, platform],
+    };
+
+    const res = await client.query(query);
+
+    return res;
+  } catch (err) {
+    console.error(err);
+    return undefined;
+  }
 }
 
-async function unSubscribe(url) {
-  const urlObject = await pb.collection('urls').getFullList({
-    filter: `url = "${url}"`,
-  });
-
-  const currentUser = await getCurrentUser();
-
-  const data = {
-    user: currentUser.id,
-    url: urlObject[0].id,
-  };
-
-  const subscriptionObject = await pb.collection('subscriptions').getFullList({
-    filter: `url = "${data.url}" && user = "${data.user}"`,
-  });
-
-  let record;
-
+async function unSubscribe(influencer, platform) {
   try {
-    record = await pb.collection('subscriptions').delete(
-      subscriptionObject[0].id,
-    );
-  } catch (error) {
-    return error;
-  }
+    if (!client) {
+      client = postgresConnexion();
+    }
 
-  return record;
+    const query = {
+      text: 'SELECT projetWeb.projetWeb.unSubscribe($1, $2, $3);',
+      values: [getCurrentUser().id_user, influencer, platform],
+    };
+
+    const res = await client.query(query);
+
+    return res;
+  } catch (err) {
+    console.error(err);
+    return undefined;
+  }
+}
+
+async function getSubscriptions() {
+  try {
+    if (!client) {
+      client = postgresConnexion();
+    }
+
+    const query = {
+      text: 'SELECT * FROM projetWeb.listSubscription WHERE id_user = $1;',
+      values: [getCurrentUser().id_user],
+    };
+
+    const res = await client.query(query);
+
+    return res;
+  } catch (err) {
+    console.error(err);
+    return undefined;
+  }
 }
 
 module.exports = {
   subscribe,
   unSubscribe,
+  getSubscriptions,
 };
