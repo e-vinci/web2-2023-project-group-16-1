@@ -13,5 +13,5 @@ Content-Type: application/json
 GET {{baseUrl}}/dbUtils/
 Content-Type: application/json
 
-### get influencer 00kxxc57xme81j3
-GET {{baseUrl}}/dbUtils/00kxxc57xme81j3
+### get influencer 1
+GET {{baseUrl}}/dbUtils/1
