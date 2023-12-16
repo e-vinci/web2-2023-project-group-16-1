@@ -11,6 +11,7 @@ const corsOptions = {
 const authsRouter = require('./routes/auths');
 const usersRouter = require('./routes/users');
 const dbUtilsRouter = require('./routes/dbUtils');
+const dbUtils2Router = require('./routes/dbUtils2');
 
 const app = express();
 
@@ -35,5 +36,6 @@ app.use(cors(corsOptions));
 app.use('/auths', authsRouter);
 app.use('/users', usersRouter);
 app.use('/dbUtils', dbUtilsRouter);
+app.use('/dbUtils2', dbUtils2Router);
 
 module.exports = app;

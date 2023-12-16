@@ -90,7 +90,7 @@ async function homeInfo() {
 
   randomFeed();
 
-  // filters();
+  filters();
 
   searchBare(influencersList);
 }
@@ -145,7 +145,52 @@ function creatAnchor(influencer) {
   div.appendChild(anchorElement);
 }
 
+async function filters() {
+  try {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const response = await fetch(`/api/dbUtils2/`, options);
 
+    if (!response.ok) {
+      throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    }
+    const listplatform = await response.json();
+
+    const div = document.getElementById('platforms');
+    listplatform.forEach((platform) => {
+      const subdiv = document.createElement('div');
+
+      const input = document.createElement('input');
+      input.className = 'form-radio h-5 w-5 text-blue-600';
+      input.type = 'radio';
+      input.name = 'social_networks';
+
+      input.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        // get the value and chnage the feed
+      });
+
+      const span = document.createElement('span');
+      span.innerText = platform.nom;
+      span.className = 'ml-2';
+
+      subdiv.appendChild(input);
+      subdiv.appendChild(span);
+      div.appendChild(subdiv);
+    });
+  } catch (err) {
+    console.error('error: ', err);
+  }
+
+  // eslint-disable-next-line no-unused-vars
+
+  // eslint-disable-next-line no-unused-vars
+}
 
 async function searchBare(influencersList) {
   const searchbar = document.getElementById('search_bar');

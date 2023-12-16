@@ -60,7 +60,28 @@ async function getInfluencerInformation(idInfluenceur) {
   }
 }
 
+async function getPlatform() {
+  const platformList = [];
+  try {
+    if (!client) {
+      client = postgresConnexion();
+    }
+
+    const query = {
+      text: 'SELECT * FROM projetWeb.allPlatforms;',
+    };
+
+    const res = await client.query(query);
+
+    return res.rows;
+  } catch (err) {
+    console.error(err);
+    return undefined;
+  }
+}
+
 module.exports = {
   getInfluencerInformation,
   getInfluencers,
+  getPlatform,
 };
