@@ -1,4 +1,4 @@
-import { register } from "../../Domain/UserLibrary";
+import { register } from '../../Domain/UserLibrary';
 
 const RegisterPage = () => {
   const html = `<div class="hero min-h-screen bg-base-200">
@@ -35,13 +35,11 @@ const RegisterPage = () => {
       </form>
     </div>
   </div>
-</div>`
-    const main = document.querySelector('main');
-    main.innerHTML = html;
+</div>`;
+  const main = document.querySelector('main');
+  main.innerHTML = html;
 
-    register();
-  };
-  
+  register();
+};
 
-  export default RegisterPage;
-  
+export default RegisterPage;
