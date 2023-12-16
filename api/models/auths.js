@@ -9,11 +9,7 @@ const saltRounds = 10;
 
 let client = getClient();
 
-async function register(email, username, password, passwordConfirm) {
-  if (password !== passwordConfirm) {
-    return undefined;
-  }
-
+async function register(email, username, password) {
   try {
     if (!client) {
       client = postgresConnexion();
@@ -30,7 +26,6 @@ async function register(email, username, password, passwordConfirm) {
 
     return res.rows;
   } catch (err) {
-    console.error(err);
     return undefined;
   }
 }

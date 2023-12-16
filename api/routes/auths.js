@@ -9,18 +9,15 @@ router.post('/register', async (req, res) => {
   const email = req?.body?.email?.length !== 0 ? req.body.email : undefined;
   const username = req?.body?.username?.length !== 0 ? req.body.username : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
-  const passwordConfirm = req?.body?.passwordConfirm?.length !== 0 ? req.body.passwordConfirm : undefined;
 
-  if (!username || !email || !password || !passwordConfirm) {
-    return res.sendStatus(400); // 400 Bad Request
+  if (!username || !email || !password) {
+    return res.status(400).json('champs invalide'); // 400 Bad Request
   }
-
-  const authenticatedUser = await register(email, username, password, passwordConfirm);
+  const authenticatedUser = await register(email, username, password);
 
   if (!authenticatedUser) {
-    return res.sendStatus(409); // 409 Conflict
+    return res.status(409).json('Erreur serveur'); // 409 Conflict
   }
-
   return res.json('OK');
 });
 

@@ -29,6 +29,15 @@ const RegisterPage = () => {
           </label>
           <input id="pwdConfirmreg" type="password" placeholder="password confirm" class="input input-bordered" required />
         </div>
+        <div>
+          <label for="gdprCheckbox">
+            <input type="checkbox" id="gdprCheckbox"> I agree to the GDPR rules
+          </label>
+        </div>
+
+        <div id="errordiv">
+        </div>
+
         <div class="form-control mt-6">
           <button id="register" class="btn btn-primary">Register</button>
         </div>
