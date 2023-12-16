@@ -22,6 +22,7 @@ const AccountSettingsPage = () => {
   main.innerHTML = html;
 
   accountInfo();
+  
 };
 
 export default AccountSettingsPage;

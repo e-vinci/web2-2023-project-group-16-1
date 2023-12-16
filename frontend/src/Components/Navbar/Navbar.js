@@ -1,4 +1,4 @@
-import { getAuthenticatedUser } from "../../utils/auths"; 
+import { isAuthenticated } from "../../utils/auths"; 
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -37,7 +37,7 @@ const Navbar = () => {
   </div>
 </div>
   `
-  navbarWrapper.innerHTML = getAuthenticatedUser()? navbarAuth : navbar;
+  navbarWrapper.innerHTML = isAuthenticated() ? navbarAuth : navbar;
 };
 
 export default Navbar;

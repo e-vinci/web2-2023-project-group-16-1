@@ -1,4 +1,6 @@
 import Navigate from '../Router/Navigate';
+import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
+import Navbar from '../Navbar/Navbar';
 
 const HomePage = () => {
   const html = `
@@ -36,15 +38,8 @@ const HomePage = () => {
               Trier par réseau social
             </div>
 
-            <div class="p-4">
-              <div>
-                <input type="radio" class="form-radio h-5 w-5 text-blue-600" name="social_networks" value="option1"   checked>
-                <span class="ml-2">Twitter</span>
-              </div>
-              <div>
-                <input type="radio" class="form-radio h-5 w-5 text-blue-600" name="social_networks" value="option2">
-                <span class="ml-2">Instagram</span>
-              </div>
+            <div id="platforms" class="p-4">
+
             </div>
           </div>
         </div>
@@ -58,10 +53,12 @@ const HomePage = () => {
     </div>
 
     <!-- Fil d'actualité -->
-    <div id="feed" class ="col-span-3 py-10 px-5" >
-    <a class="twitter-timeline" data-lang="en" data-width="1000" data-height="1000" data-theme="dark" href="https://twitter.com/ZeratoR?ref_src=twsrc%5Etfw">Tweets by ZeratoR</a> 
+    <div id="feed"  class ="col-span-3 py-10 px-5">
+    
     </div>
   </div>`;
+
+  Navbar();
 
   const main = document.querySelector('main');
   main.innerHTML = html;
@@ -81,12 +78,76 @@ async function homeInfo() {
     };
 
     const response = await fetch('/api/dbUtils', options);
+
+    if (!response.ok) {
+      throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    }
     influencersList = await response.json();
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
   }
 
+  randomFeed();
+
+  // filters();
+
+  searchBare(influencersList);
+}
+
+// eslint-disable-next-line no-unused-vars
+async function randomFeed() {
+  if (isAuthenticated()) {
+    const user = getAuthenticatedUser();
+
+    try {
+      const options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: user.token,
+        },
+      };
+      const response = await fetch(`/api/users/`, options);
+
+      if (!response.ok) {
+        throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+      }
+      const listSubscription = await response.json();
+
+      const randomNumber = Math.floor(Math.random() * listSubscription.length);
+      const influencer = listSubscription[randomNumber];
+
+      creatAnchor(influencer);
+    } catch (err) {
+      console.error('error: ', err);
+    }
+    // eslint-disable-next-line no-empty
+  } else {
+    const div = document.getElementById('feed');
+    const subdiv = document.createElement('div');
+    subdiv.innerText = 'you are not loged in !';
+    div.appendChild(subdiv);
+  }
+}
+
+function creatAnchor(influencer) {
+  const anchorElement = document.createElement('a');
+  anchorElement.innerText = `${influencer.platform} by ${influencer.influencer}`;
+  anchorElement.setAttribute('href', `${influencer.url}`);
+  anchorElement.setAttribute('class', `twitter-timeline`);
+  anchorElement.setAttribute('data-lang', `en`);
+  anchorElement.setAttribute('data-width', `1000`);
+  anchorElement.setAttribute('data-height', `1000`);
+  anchorElement.setAttribute('data-theme', `dark`);
+
+  const div = document.getElementById('feed');
+  div.appendChild(anchorElement);
+}
+
+
+
+async function searchBare(influencersList) {
   const searchbar = document.getElementById('search_bar');
 
   searchbar.addEventListener('input', async (e) => {
@@ -100,11 +161,6 @@ async function homeInfo() {
         tmplist.push(influencer);
       }
     });
-
-    // Perform search or filtering based on searchText
-    // eslint-disable-next-line no-console
-    console.log(tmplist);
-
     const divresultSearch = document.getElementById('resultSearch');
 
     while (divresultSearch.firstChild) {
