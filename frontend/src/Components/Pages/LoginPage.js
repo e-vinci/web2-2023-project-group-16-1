@@ -20,6 +20,10 @@ const LoginPage = () => {
               <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
             </label>
           </div>
+
+          <div id="errordiv">
+          </div>
+
           <div class="form-control mt-6">
             <button class="btn btn-primary" id="loginbtn">Login</button>
           </div>

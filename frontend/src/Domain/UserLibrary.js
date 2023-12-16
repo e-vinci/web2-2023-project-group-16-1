@@ -28,7 +28,8 @@ async function login() {
       const response = await fetch(`/api/auths/login`, options);
 
       if (!response.ok) {
-        throw new Error(`Fetch error: ${response.status} - ${response.statusText}`);
+        const msg = await response.json();
+        document.getElementById('errordiv').innerText = `${msg}`;
       }
 
       const user = await response.json();
@@ -56,6 +57,7 @@ async function register() {
     const password = document.getElementById('pwdreg').value;
     const passwordConfirm = document.getElementById('pwdConfirmreg').value;
     const gdprCheckbox = document.getElementById('gdprCheckbox');
+
     if (password !== passwordConfirm) {
       document.getElementById('errordiv').innerText = '2 different password';
     } else if (!gdprCheckbox.checked) {
@@ -65,7 +67,7 @@ async function register() {
       const newData = {
         email,
         username,
-        password,
+        // password,
       };
 
       try {
@@ -77,10 +79,10 @@ async function register() {
           },
         };
 
-        const reponse = await fetch(`/api/auths/register`, options);
+        const response = await fetch(`/api/auths/register`, options);
 
-        if (!reponse.ok) {
-          const msg = await reponse.json();
+        if (!response.ok) {
+          const msg = await response.json();
           document.getElementById('errordiv').innerText = `${msg}`;
         } else {
           // clearActive();
