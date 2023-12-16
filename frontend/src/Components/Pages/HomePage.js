@@ -52,13 +52,15 @@ const HomePage = () => {
     </div>
 
     <!-- Fil d'actualité -->
-    <div class ="col-span-3 py-10 px-5" >
-      <a class="twitter-timeline" data-lang="en" data-width="1000" data-height="1000" data-theme="dark" href="https://twitter.com/ZeratoR?ref_src=twsrc%5Etfw">Tweets by ZeratoR</a> 
+    <div id="feed" class ="col-span-3 py-10 px-5" >
+    <a class="twitter-timeline" data-lang="en" data-width="1000" data-height="1000" data-theme="dark" href="https://twitter.com/ZeratoR?ref_src=twsrc%5Etfw">Tweets by ZeratoR</a> 
     </div>
   </div>`
   
   const main = document.querySelector('main');
   main.innerHTML = html;
+
+  // homeInfo()
 };
 
 export default HomePage;

@@ -1,4 +1,4 @@
-import { accountInfo } from '../../Domain/accountLibrary';
+import { accountInfo } from '../../Domain/AccountLibrary';
 
 const AccountSettingsPage = () => {
   const html = `
