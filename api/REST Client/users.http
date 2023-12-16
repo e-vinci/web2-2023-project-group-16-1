@@ -17,7 +17,7 @@ Authorization: {{jane_smith.response.body.token}}
 
 {
     "influencer":"Zerator",
-    "platform":"Twiter / X"
+    "platform":"Twitter / X"
 }
 
 ### list of subscription
@@ -32,7 +32,7 @@ Authorization: {{jane_smith.response.body.token}}
 
 {
     "influencer":"Zerator",
-    "platform":"Twiter / X"
+    "platform":"Twitter / X"
 }
 
 ### Login alex_jones
