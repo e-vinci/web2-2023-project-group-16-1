@@ -1,6 +1,8 @@
 @baseUrl = http://localhost:3000
 
 ### Login user 3
+##### Define a request variable nammed admin :
+# @name user3
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
 
@@ -12,21 +14,25 @@ Content-Type: application/json
 ### subscribe to influencer
 POST {{baseUrl}}/users/subscribe
 Content-Type: application/json
+Authorization: {{user3.response.body.token}}
 
 {
     "influencer":"Zerator",
     "platform":"Twiter / X"
 }
+
+### list of subscription
+GET {{baseUrl}}/users/
+Content-Type: application/json
+Authorization: {{user3.response.body.token}}
 
 ### unsubscribe to influencer
 POST {{baseUrl}}/users/unsubscribe
 Content-Type: application/json
+Authorization: {{user3.response.body.token}}
 
 {
     "influencer":"Zerator",
     "platform":"Twiter / X"
 }
 
-### unsubscribe to influencer
-GET {{baseUrl}}/users/
-Content-Type: application/json
