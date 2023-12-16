@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { getClient, postgresConnexion } = require('../utils/postgres');
 
-const jwtSecret = 'tmtcpoto!';
+const jwtSecret = 'NicoTitiEfe';
 const lifetimeJwt = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
 
 const saltRounds = 10;
@@ -64,8 +64,6 @@ async function login(email, password) {
       username: user.username,
       token,
     };
-
-    console.log(authenticatedUser);
 
     return authenticatedUser;
   } catch (err) {
