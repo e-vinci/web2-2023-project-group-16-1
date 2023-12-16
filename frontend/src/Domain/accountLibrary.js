@@ -7,6 +7,7 @@ async function accountInfo() {
 
   const div = document.getElementById('username');
   div.innerText = `Hello ${user.username} !`;
+  div.className = 'text-2xl font-bold mb-4';
 
   buttunDelet(user);
 
@@ -14,7 +15,7 @@ async function accountInfo() {
 }
 
 async function buttunDelet(user) {
-  const btn = document.getElementById('deleteAcount');
+  const btn = document.getElementById('deleteAccount');
 
   btn.addEventListener('click', async (e) => {
     e.preventDefault();
@@ -58,13 +59,37 @@ async function subscription(user) {
     const listSubscription = await response.json();
 
     const div = document.getElementById('subscriptions');
+    const divSubscriptions = document.createElement('div');
+    divSubscriptions.className = 'bg-white rounded shadow-md p-4';
 
+    let index = 1;
     listSubscription.forEach((sub) => {
-      const divSubscription = document.createElement('div');
-      divSubscription.innerText = `influencer: ${sub.influencer} platform: ${sub.platform}`;
 
-      div.appendChild(divSubscription);
+      const divSubscription = document.createElement('div');
+      divSubscription.className = 'mb-4'
+
+      const subscriptionInfluencer = document.createElement('p');
+      subscriptionInfluencer.className = 'font-bold'
+      subscriptionInfluencer.innerText = `Influencer : ${sub.influencer}`
+
+      const subscriptionPlatform = document.createElement('p');
+      subscriptionPlatform.className = 'text-gray-500';
+      subscriptionPlatform.innerText = `Platforms : ${sub.platform}`;
+      
+      divSubscription.appendChild(subscriptionInfluencer);
+      divSubscription.appendChild(subscriptionPlatform);
+      divSubscriptions.appendChild(divSubscription);
+
+      if(listSubscription.length !== index){
+        const subscriptionSeparation = document.createElement('div');
+        subscriptionSeparation.className = 'border-t border-gray-200 py-3';
+        divSubscriptions.appendChild(subscriptionSeparation);
+      }
+
+      index+=1;
     });
+
+    div.appendChild(divSubscriptions);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('error: ', err);
