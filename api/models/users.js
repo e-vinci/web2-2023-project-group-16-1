@@ -64,8 +64,31 @@ async function getSubscriptions(userId) {
   }
 }
 
+async function deleteUser(userId) {
+  try {
+    if (!client) {
+      client = postgresConnexion();
+    }
+
+    const query = {
+      text: 'SELECT * FROM projetWeb.deleteUser($1);',
+      values: [userId],
+    };
+
+    const res = await client.query(query);
+
+    const listSubscription = res.rows;
+
+    return listSubscription;
+  } catch (err) {
+    console.error(err);
+    return undefined;
+  }
+}
+
 module.exports = {
   subscribe,
   unSubscribe,
   getSubscriptions,
+  deleteUser,
 };

@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 const express = require('express');
-const { subscribe, unSubscribe, getSubscriptions } = require('../models/users');
+const {
+  subscribe, unSubscribe, getSubscriptions, deleteUser,
+} = require('../models/users');
 const { authorize } = require('../utils/auths');
 
 const router = express.Router();
@@ -43,6 +45,18 @@ router.get('/', authorize, async (req, res) => {
   }
 
   return res.json(subscriptions);
+});
+
+router.post('/deleteUser', authorize, async (req, res) => {
+  const userId = req?.userId?.length !== 0 ? req.userId : undefined;
+
+  if (!userId) return res.sendStatus(400); // 400 Bad Request
+
+  const isdelete = await deleteUser(userId);
+
+  if (!isdelete) return res.sendStatus(500);
+
+  return res.json(isdelete);
 });
 
 module.exports = router;
