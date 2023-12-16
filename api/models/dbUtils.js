@@ -16,7 +16,7 @@ async function getInfluencers() {
     const res = await client.query(query);
 
     res.rows.forEach((influencerObject) => {
-      influencerList.push(influencerObject.nom);
+      influencerList.push(influencerObject);
     });
 
     return influencerList;
