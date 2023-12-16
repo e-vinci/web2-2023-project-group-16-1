@@ -1,23 +1,17 @@
 const { Client } = require('pg');
 
 let client;
-const connectionString = 'postgres://lqbelykr:IKBvEmsmPVU-0vJMDJgNH4BrqXA8EWle@flora.db.elephantsql.com/lqbelykr';
 
 function postgresConnexion() {
-  client = new Client(connectionString);
-
-  client.connect((err) => {
-    if (err) {
-      console.error(err);
-    }
+  client = new Client({
+    user: 'postgres',
+    host: 'localhost',
+    password: '',
+    port: 5432,
   });
 
-  client.query('SELECT NOW() AS "theTime"', (err, result) => {
-    if (err) {
-      console.error('error running query', err);
-    }
-    console.log(result.rows[0].theTime);
-  });
+  client.connect();
+
   return client;
 }
 
