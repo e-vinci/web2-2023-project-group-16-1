@@ -42,7 +42,7 @@ CREATE TABLE projetWeb.subscriptions
 
 -- view
 CREATE OR REPLACE VIEW projetWeb.allInfluencers AS
-SELECT i.nom
+SELECT i.id_influencer, i.nom
 FROM projetWeb.influencers i
 ORDER BY (i.nom);
 
@@ -62,7 +62,7 @@ WHERE us.id_user = s.id_user
   AND s.url = ur.id_url
   AND ur.influenceur = i.id_influencer
   AND ur.platform = p.id_platform
-ORDER BY i.nom, p.nom;
+ORDER BY s.id_user, i.nom, p.nom;
 
 CREATE OR REPLACE VIEW projetWeb.infoInfluencer AS
 SELECT i.id_influencer, i.nom AS influencer, i.description, p.nom AS platform
