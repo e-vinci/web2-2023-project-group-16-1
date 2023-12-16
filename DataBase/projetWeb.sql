@@ -217,6 +217,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- trigger
+
 CREATE OR REPLACE FUNCTION projetWeb.deleteUserInfo() RETURNS TRIGGER AS
 $$
 DECLARE
@@ -237,12 +239,60 @@ EXECUTE PROCEDURE projetWeb.deleteUserInfo();
 
 -- insert
 INSERT INTO projetWeb.influencers(id_influencer, nom, description)
-VALUES (DEFAULT, 'Zerator',
-        'Entrepreneur - Instagram : ZeratoR - Twitch partner - Founder @Unexpected_std, @MandatoryGG & @Ascension_TN - Compte partagé - contact : @alexdach');
+VALUES (DEFAULT, 'Ninja',
+        'Professional gamer, streamer, and esports personality - Known for Fortnite, Valorant, and Halo - Founder @TeamNinja');
 
 INSERT INTO projetWeb.influencers(id_influencer, nom, description)
-VALUES (DEFAULT, 'mistermv',
-        'French streamer & show host Music composer & producer @XavDang, Co-founder @Team_Aegis_, Co-producer @Gofroles, business: mistermv@20ty.gg');
+VALUES (DEFAULT, 'Auronplay',
+        'Spanish YouTuber, Twitch streamer, and content creator - Comedy and commentary content - Popular for his humorous approach to trending topics');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'Ibai',
+        'Spanish streamer, content creator, and entrepreneur - Owner of @G2esports - Hosts Ibai Llanos Show on Twitch - Engages with gaming and entertainment');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'Rubius',
+        'Spanish YouTuber, Twitch streamer, and social media influencer - Known for gaming, vlogs, and collaborations - Founder @VirtualHero');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'xQc',
+        'Canadian Twitch streamer, content creator, and former professional Overwatch player - Engages in a variety of games and IRL content');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'TheGrefg',
+        'Spanish YouTuber, Twitch streamer, and professional gamer - Known for Fortnite and a variety of games - Holds the record for most concurrent Twitch viewers');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'Tfue',
+        'American Twitch streamer, YouTuber, and professional Fortnite player - Former FaZe Clan member - Known for high-level gameplay and entertaining content');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'Juansguarnizo',
+        'Colombian YouTuber, Twitch streamer, and content creator - Known for gaming, vlogs, and comedy content - Popular in the Spanish-speaking gaming community');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'Shroud',
+        'Canadian Twitch streamer and former professional CS:GO player - Known for exceptional first-person shooter (FPS) gameplay - Co-owner @madrinas');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'Pokimane',
+        'Moroccan-Canadian Twitch streamer and YouTuber - Variety streamer with a focus on gaming and IRL content - Member of OfflineTV');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'Gotaga',
+        'French professional esports player, Twitch streamer, and content creator - Former professional Call of Duty player - Founder @GotagaTV');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'Domingo',
+        'French YouTuber, Twitch streamer, and entrepreneur - Founder of @LeStream - Known for gaming content, podcasts, and collaborations');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'Zerator',
+        'French gaming icon and content creator - Renowned Twitch streamer with a passion for a variety of games - Founder of the Z Event charity marathon, raising funds for noble causes');
+
+INSERT INTO projetWeb.influencers(id_influencer, nom, description)
+VALUES (DEFAULT, 'MisterMV',
+        'Versatile French content creator and live streamer - Expert in retro and indie games - Known for his engaging and entertaining streams, blending humor and gaming expertise');
 
 INSERT INTO projetWeb.influencers(id_influencer, nom, description)
 VALUES (DEFAULT, 'AlphaCast', 'Compte de secours AlphaCast');
@@ -250,26 +300,58 @@ VALUES (DEFAULT, 'AlphaCast', 'Compte de secours AlphaCast');
 INSERT INTO projetWeb.platforms(id_platform, nom)
 VALUES (DEFAULT, 'Twiter / X');
 
-INSERT INTO projetWeb.platforms(id_platform, nom)
-VALUES (DEFAULT, 'Instagram');
-
+-- User 1
 INSERT INTO projetWeb.users(id_user, username, email, mdp_hash)
-VALUES (DEFAULT, 'test 1', 'test@1.be', '$2a$10$3k9iGHAGLw7wTT.g95gCF.p0Gp4ymcAobR.XJYqAstDb7Aa8gw9um');
+VALUES (DEFAULT, 'john_doe', 'john.doe@email.com', '$2a$10$3k9iGHAGLw7wTT.g95gCF.p0Gp4ymcAobR.XJYqAstDb7Aa8gw9um');
 
+-- User 2
 INSERT INTO projetWeb.users(id_user, username, email, mdp_hash)
-VALUES (DEFAULT, 'test 2', 'test@2.be', '$2a$10$3k9iGHAGLw7wTT.g95gCF.p0Gp4ymcAobR.XJYqAstDb7Aa8gw9um');
+VALUES (DEFAULT, 'jane_smith', 'jane.smith@email.com', '$2a$10$3k9iGHAGLw7wTT.g95gCF.p0Gp4ymcAobR.XJYqAstDb7Aa8gw9um');
 
 INSERT INTO projetWeb.urls(id_url, url, influenceur, platform)
-VALUES (DEFAULT, 'https://twitter.com/ZeratoR', 1, 1);
+VALUES (DEFAULT, 'https://twitter.com/Ninja', 1, 1);
 
 INSERT INTO projetWeb.urls(id_url, url, influenceur, platform)
-VALUES (DEFAULT, 'https://www.instagram.com/ZeratoR', 1, 2);
+VALUES (DEFAULT, 'https://twitter.com/auronplay', 2, 1);
 
 INSERT INTO projetWeb.urls(id_url, url, influenceur, platform)
-VALUES (DEFAULT, 'https://twitter.com/mistermv', 2, 1);
+VALUES (DEFAULT, 'https://twitter.com/Ibai', 3, 1);
+
+INSERT INTO projetWeb.urls(url, influenceur, platform)
+VALUES ('https://twitter.com/Rubius', 4, 1);
+
+INSERT INTO projetWeb.urls(url, influenceur, platform)
+VALUES ('https://twitter.com/xQc', 5, 1);
+
+INSERT INTO projetWeb.urls(url, influenceur, platform)
+VALUES ('https://twitter.com/TheGrefg', 6, 1);
+
+INSERT INTO projetWeb.urls(url, influenceur, platform)
+VALUES ('https://twitter.com/Tfue', 7, 1);
+
+INSERT INTO projetWeb.urls(url, influenceur, platform)
+VALUES ('https://twitter.com/JuanSGuarnizo', 8, 1);
+
+INSERT INTO projetWeb.urls(url, influenceur, platform)
+VALUES ('https://twitter.com/shroud', 9, 1);
+
+INSERT INTO projetWeb.urls(url, influenceur, platform)
+VALUES ('https://twitter.com/pokimanelol', 10, 1);
+
+INSERT INTO projetWeb.urls(url, influenceur, platform)
+VALUES ('https://twitter.com/Gotaga', 11, 1);
+
+INSERT INTO projetWeb.urls(url, influenceur, platform)
+VALUES ('https://twitter.com/Domingo', 12, 1);
 
 INSERT INTO projetWeb.urls(id_url, url, influenceur, platform)
-VALUES (DEFAULT, 'https://twitter.com/AlphaCastFR2', 3, 1);
+VALUES (DEFAULT, 'https://twitter.com/ZeratoR', 13, 1);
+
+INSERT INTO projetWeb.urls(id_url, url, influenceur, platform)
+VALUES (DEFAULT, 'https://twitter.com/mistermv', 14, 1);
+
+INSERT INTO projetWeb.urls(id_url, url, influenceur, platform)
+VALUES (DEFAULT, 'https://twitter.com/AlphaCastFR2', 15, 1);
 
 INSERT INTO projetWeb.subscriptions(id_user, url)
 VALUES (1, 1);
