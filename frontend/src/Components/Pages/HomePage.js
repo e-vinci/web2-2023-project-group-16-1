@@ -1,12 +1,15 @@
 import Navigate from '../Router/Navigate';
-import Navbar from '../Navbar/Navbar';
 
 const HomePage = () => {
   const html = `
   <div class="grid grid-cols-4">
     <div class="px-2 py-10 column-span-1">
-      <input type="text" id="search_bar" placeholder="Search" class="input input-bordered w-full max-w-xs" />
-
+      <div>  
+        <input type="text" id="search_bar" placeholder="Search" class="input input-bordered w-full max-w-xs" />
+        <div id="resultSearch">
+          
+        </div>
+      </div>
       <div class="px-2 py-10 w-6/7">
         <div class="border rounded">
 
@@ -67,52 +70,69 @@ const HomePage = () => {
 };
 
 async function homeInfo() {
-  const input = document.getElementById('search_bar');
+  let influencersList = [];
+  try {
+    const options = {
+      method: 'GET',
+      body: JSON.stringify(),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-  search(input);
-}
+    const response = await fetch('/api/dbUtils', options);
+    influencersList = await response.json();
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('error: ', err);
+  }
 
-async function search(searchInput) {
-  const searchText = searchInput.target.value;
-  // Perform search or filtering based on searchText
-  // eslint-disable-next-line no-console
-  console.log(`SEARCH : ${searchText}`);
+  const searchbar = document.getElementById('search_bar');
 
-  // Using the input event with a named function
-  searchInput.addEventListener('input', async (e) => {
+  searchbar.addEventListener('input', async (e) => {
     e.preventDefault();
 
-    try {
-      const options = {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
+    const searchText = searchbar.value;
+    const tmplist = [];
 
-      const response = await fetch('/api/models/dbUtils', options);
-      const influencersList = await response.json();
-
-      console.log(influencersList);
-
-      for (let i = 0; i < influencersList.length; i+=1) {
-        const influencerName = influencersList[i].nom.textContent.toLowerCase(); // Get the influencer name and convert to lowercase
-        console.log(influencersList[i]);
-
-        // Check if the influencer name contains the search text
-        if (influencerName.includes(searchText)) {
-          influencersList[i].nom.style.display = 'block'; // Display the influencer if it matches the search
-        } else {
-          influencersList[i].nom.style.display = 'none'; // Hide the influencer if it doesn't match the search
-        }
+    influencersList.forEach((influencer) => {
+      if (influencer.nom.toLowerCase().includes(searchText.toLowerCase())) {
+        tmplist.push(influencer);
       }
+    });
 
-      Navbar();
-      Navigate('/');
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error('error: ', err);
+    // Perform search or filtering based on searchText
+    // eslint-disable-next-line no-console
+    console.log(tmplist);
+
+    const divresultSearch = document.getElementById('resultSearch');
+
+    while (divresultSearch.firstChild) {
+      divresultSearch.removeChild(divresultSearch.firstChild);
     }
+
+    let index = 0;
+    tmplist.forEach((influencer) => {
+      if (index < 3) {
+        const divSubResultSearch = document.createElement('div');
+        const btnInfluencer = document.createElement('button');
+        btnInfluencer.innerText = influencer.nom;
+
+        addEventListener(btnInfluencer, influencer);
+
+        divSubResultSearch.appendChild(btnInfluencer);
+        divresultSearch.appendChild(divSubResultSearch);
+      }
+      index += 1;
+    });
+  });
+}
+
+async function addEventListener(btnInfluencer, influencer) {
+  btnInfluencer.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    Navigate(`/influencer?id=${influencer.id_influencer}`);
   });
 }
 
