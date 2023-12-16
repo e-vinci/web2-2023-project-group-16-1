@@ -1,3 +1,6 @@
+import Navigate from '../Router/Navigate';
+import Navbar from '../Navbar/Navbar';
+
 const HomePage = () => {
   const html = `
   <div class="grid grid-cols-4">
@@ -55,12 +58,62 @@ const HomePage = () => {
     <div id="feed" class ="col-span-3 py-10 px-5" >
     <a class="twitter-timeline" data-lang="en" data-width="1000" data-height="1000" data-theme="dark" href="https://twitter.com/ZeratoR?ref_src=twsrc%5Etfw">Tweets by ZeratoR</a> 
     </div>
-  </div>`
-  
+  </div>`;
+
   const main = document.querySelector('main');
   main.innerHTML = html;
 
-  // homeInfo()
+  homeInfo();
 };
+
+async function homeInfo() {
+  const input = document.getElementById('search_bar');
+
+  search(input);
+}
+
+async function search(searchInput) {
+  const searchText = searchInput.target.value;
+  // Perform search or filtering based on searchText
+  // eslint-disable-next-line no-console
+  console.log(`SEARCH : ${searchText}`);
+
+  // Using the input event with a named function
+  searchInput.addEventListener('input', async (e) => {
+    e.preventDefault();
+
+    try {
+      const options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const response = await fetch('/api/models/dbUtils', options);
+      const influencersList = await response.json();
+
+      console.log(influencersList);
+
+      for (let i = 0; i < influencersList.length; i+=1) {
+        const influencerName = influencersList[i].nom.textContent.toLowerCase(); // Get the influencer name and convert to lowercase
+        console.log(influencersList[i]);
+
+        // Check if the influencer name contains the search text
+        if (influencerName.includes(searchText)) {
+          influencersList[i].nom.style.display = 'block'; // Display the influencer if it matches the search
+        } else {
+          influencersList[i].nom.style.display = 'none'; // Hide the influencer if it doesn't match the search
+        }
+      }
+
+      Navbar();
+      Navigate('/');
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('error: ', err);
+    }
+  });
+}
 
 export default HomePage;

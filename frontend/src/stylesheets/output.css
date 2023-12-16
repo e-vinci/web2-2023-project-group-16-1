@@ -1813,6 +1813,12 @@ html {
   margin-top: 0;
 }
 
+.mockup-phone .display {
+  overflow: hidden;
+  border-radius: 40px;
+  margin-top: -25px;
+}
+
 .mockup-browser .mockup-browser-toolbar .input {
   position: relative;
   margin-left: auto;
@@ -2054,6 +2060,10 @@ html {
   margin-top: 1.5rem;
 }
 
+.block {
+  display: block;
+}
+
 .grid {
   display: grid;
 }
@@ -2206,6 +2216,10 @@ html {
 
 .font-bold {
   font-weight: 700;
+}
+
+.lowercase {
+  text-transform: lowercase;
 }
 
 .normal-case {
