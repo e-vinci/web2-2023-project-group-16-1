@@ -298,7 +298,7 @@ INSERT INTO projetWeb.influencers(id_influencer, nom, description)
 VALUES (DEFAULT, 'AlphaCast', 'Compte de secours AlphaCast');
 
 INSERT INTO projetWeb.platforms(id_platform, nom)
-VALUES (DEFAULT, 'Twiter / X');
+VALUES (DEFAULT, 'Twitter / X');
 
 -- User 1
 INSERT INTO projetWeb.users(id_user, username, email, mdp_hash)
@@ -373,3 +373,14 @@ VALUES (2, 2);
 
 INSERT INTO projetWeb.subscriptions(id_user, url)
 VALUES (2, 3);
+
+INSERT INTO projetWeb.users(id_user, username, email, mdp_hash)
+VALUES (DEFAULT, 'alex_jones', 'alex.jones@email.com', '$2a$10$3k9iGHAGLw7wTT.g95gCF.p0Gp4ymcAobR.XJYqAstDb7Aa8gw9um');
+
+/*
+INSERT INTO projetWeb.subscriptions(id_user, url)
+VALUES (3, 13);
+
+INSERT INTO projetWeb.subscriptions(id_user, url)
+VALUES (3, 14);
+ */
