@@ -17,8 +17,6 @@ async function influencerInfo(influencerId) {
     }
     const influencer = await response.json();
 
-    console.log(influencer);
-
     const divInfluencerName = document.getElementById('influencerName');
 
     const subDivInfluencerName = document.createElement('div');
@@ -41,8 +39,10 @@ async function influencerInfo(influencerId) {
     platforms.forEach((platform) => {
       const subDivPlatforms = document.createElement('div');
       subDivPlatforms.innerText = platform;
+      subDivPlatforms.className = "p-3"
 
       const btnPlatform = document.createElement('button');
+      btnPlatform.className = "inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-300";
       btnPlatform.innerText = 'Subscribe';
 
       btnPlatform.addEventListener('click', async (e) => {
