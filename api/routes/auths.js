@@ -11,7 +11,7 @@ router.post('/register', async (req, res) => {
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
   if (!username || !email || !password) {
-    return res.status(400).json('Bad Reques');
+    return res.status(400).json('Bad Request');
   }
   const authenticatedUser = await register(email, username, password);
 
@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
   if (!email || !password) {
-    return res.status(400).json('Bad Reques');
+    return res.status(400).json('Bad Request');
   }
 
   const authenticatedUser = await login(email, password);
