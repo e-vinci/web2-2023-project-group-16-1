@@ -38,6 +38,7 @@ async function login() {
       Navbar();
       Navigate('/');
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error('error: ', err);
     }
   });
