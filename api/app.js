@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cookieSession = require('cookie-session');
 const cors = require('cors');
 
 const corsOptions = {
@@ -12,6 +13,17 @@ const usersRouter = require('./routes/users');
 const dbUtilsRouter = require('./routes/dbUtils');
 
 const app = express();
+
+const expiryDateIn3Months = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 3);
+const cookieSecreteKey = 'Brulans4SteinRhunys';
+app.use(
+  cookieSession({
+    name: 'user',
+    keys: [cookieSecreteKey],
+    httpOnly: true,
+    expires: expiryDateIn3Months,
+  }),
+);
 
 app.use(logger('dev'));
 app.use(express.json());
