@@ -9,12 +9,12 @@ async function accountInfo() {
   div.innerText = `Hello ${user.username} !`;
   div.className = 'text-2xl font-bold mb-4';
 
-  buttunDelet(user);
+  buttonDelete(user);
 
   subscription(user);
 }
 
-async function buttunDelet(user) {
+async function buttonDelete(user) {
   const btn = document.getElementById('deleteAccount');
 
   btn.addEventListener('click', async (e) => {
