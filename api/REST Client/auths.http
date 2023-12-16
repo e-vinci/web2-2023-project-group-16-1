@@ -1,12 +1,12 @@
 @baseUrl = http://localhost:3000
 
-### Create a user
+### Create alex_jones 
 POST {{baseUrl}}/auths/register
 Content-Type: application/json
 
 {
-    "username":"test 3",
-    "email":"test@3.be",
+    "username":"alex_jones",
+    "email":"alex.jones@email.com",
     "password":"12345",
     "passwordConfirm":"12345"
 }
@@ -16,26 +16,35 @@ POST {{baseUrl}}/auths/register
 Content-Type: application/json
 
 {
-    "username":"test 1",
-    "email":"test@1.be",
-    "password":"azqwazqR",
-    "passwordConfirm":"azqwazqR"
+    "username":"john_doe",
+    "email":"john.doe@email.com",
+    "password":"12345",
+    "passwordConfirm":"12345"
 }
 
-### Login wrong user
+### Login jane_smith with wrong password
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
 
 {
-    "email":"test@1.be",
+    "email":"alex.jones@email.com",
     "password":"12346"
 }
 
-### Login user 2
+### Login alex_jones
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
 
 {
-    "email":"test@2.be",
+    "email":"alex.jones@email.com",
+    "password":"12345"
+}
+
+### Login jane_smith
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "email":"jane.smith@email.com",
     "password":"12345"
 }
