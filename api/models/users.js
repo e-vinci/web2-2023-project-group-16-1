@@ -2,17 +2,15 @@ const { getClient, postgresConnexion } = require('../utils/postgres');
 
 let client = getClient();
 
-async function subscribe(influencer, platform) {
+async function subscribe(userId, influencer, platform) {
   try {
     if (!client) {
       client = postgresConnexion();
     }
 
-    const user = await getCurrentUser();
-
     const query = {
       text: 'SELECT projetWeb.subscribeTo($1, $2, $3);',
-      values: [user.id_user, influencer, platform],
+      values: [userId, influencer, platform],
     };
 
     const res = await client.query(query);
@@ -24,16 +22,15 @@ async function subscribe(influencer, platform) {
   }
 }
 
-async function unSubscribe(influencer, platform) {
+async function unSubscribe(userId, influencer, platform) {
   try {
     if (!client) {
       client = postgresConnexion();
     }
-    const user = await getCurrentUser();
 
     const query = {
       text: 'SELECT projetWeb.unSubscribe($1, $2, $3);',
-      values: [user.id_user, influencer, platform],
+      values: [userId, influencer, platform],
     };
 
     const res = await client.query(query);
@@ -45,16 +42,15 @@ async function unSubscribe(influencer, platform) {
   }
 }
 
-async function getSubscriptions() {
+async function getSubscriptions(userId) {
   try {
     if (!client) {
       client = postgresConnexion();
     }
-    const user = await getCurrentUser();
 
     const query = {
       text: 'SELECT * FROM projetWeb.listSubscription WHERE id_user = $1;',
-      values: [user.id_user],
+      values: [userId],
     };
 
     const res = await client.query(query);
