@@ -10,13 +10,13 @@ const HomePage = () => {
   <div class="grid grid-cols-4">
     <div class="px-2 py-10 column-span-1">
       <div>  
-        <input type="text" id="search_bar" placeholder="Search" class="input input-bordered w-full max-w-xs" />
+        <input type="text" id="search_bar" placeholder="Search" class="bg-white border input input-bordered w-full max-w-xs" />
         <div id="resultSearch">
           
         </div>
       </div>
       <div class="px-2 py-10 w-6/7">
-        <div class="border rounded">
+        <div class="bg-white border rounded">
 
           <!-- First section -->
           <div class="border-b">
@@ -89,7 +89,7 @@ async function homeInfo() {
   filterInfluencer();
   filterPlatform();
 
-  searchBare(influencersList);
+  searchBar(influencersList);
 
   const btn = document.getElementById('filterbtn');
 
@@ -183,8 +183,8 @@ async function randomFeed() {
       const randomNumber = Math.floor(Math.random() * listSubscription.length);
       const influencer = listSubscription[randomNumber];
 
-      creatAnchor(influencer);
-    } catch (err) { 
+      createAnchor(influencer);
+    } catch (err) {
       console.error('error: ', err);
     }
     // eslint-disable-next-line no-empty
@@ -192,12 +192,13 @@ async function randomFeed() {
     const div = document.getElementById('feed');
     const subdiv = document.createElement('div');
     subdiv.innerText = 'Log in to see a feed';
-    subdiv.className = 'bg-white border-l-4 border-green-500 text-green-700 px-4 py-3 shadow-md rounded-md items-center inline-block rounded animate-wiggle animate-infinite animate-duration-1000 animate-delay-0';
+    subdiv.className =
+      'bg-white border-l-4 border-green-500 text-green-700 px-4 py-3 shadow-md rounded-md items-center inline-block rounded animate-wiggle animate-infinite animate-duration-1000 animate-delay-0';
     div.appendChild(subdiv);
   }
 }
 
-function creatAnchor(influencer) {
+function createAnchor(influencer) {
   const anchorElement = document.getElementById('feedLink');
   anchorElement.innerText = `${influencer.platform} by ${influencer.influencer}`;
   anchorElement.setAttribute('href', `${influencer.url}`);
@@ -288,7 +289,7 @@ async function filterPlatform() {
   // eslint-disable-next-line no-unused-vars
 }
 
-async function searchBare(influencersList) {
+async function searchBar(influencersList) {
   const searchbar = document.getElementById('search_bar');
 
   searchbar.addEventListener('input', async (e) => {
@@ -303,7 +304,7 @@ async function searchBare(influencersList) {
       }
     });
     const divresultSearch = document.getElementById('resultSearch');
-
+    divresultSearch.className = 'py-2 px-1';
     while (divresultSearch.firstChild) {
       divresultSearch.removeChild(divresultSearch.firstChild);
     }
@@ -314,6 +315,7 @@ async function searchBare(influencersList) {
         const divSubResultSearch = document.createElement('div');
         const btnInfluencer = document.createElement('button');
         btnInfluencer.innerText = influencer.nom;
+        btnInfluencer.className = 'bg-white border border-gray-200 p-3';
 
         addEventListener(btnInfluencer, influencer);
 
@@ -333,4 +335,5 @@ async function addEventListener(btnInfluencer, influencer) {
   });
 }
 
+export { searchBar };
 export default HomePage;
