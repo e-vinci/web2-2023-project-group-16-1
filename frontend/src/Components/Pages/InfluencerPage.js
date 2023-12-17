@@ -1,6 +1,9 @@
 import { influencerInfo } from '../../Domain/InfluencerLibrary';
+import { clearPage } from '../../utils/render';
 
 const InfluencerPage = () => {
+  clearPage();
+
   const html = `
     <div class="max-w-3xl mx-auto p-8 bg-white rounded-lg px-5 py-5 text-center">
       <div id="influencerName" class ="p-5 text-4xl font-bold mb-2">

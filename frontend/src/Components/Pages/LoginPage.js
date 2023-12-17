@@ -1,7 +1,10 @@
-import { login } from "../../Domain/UserLibrary";
+import { login } from '../../Domain/UserLibrary';
+import { clearPage } from '../../utils/render';
 
 const LoginPage = () => {
-    const html = `<div class="hero min-h-screen bg-base-200">
+  clearPage();
+
+  const html = `<div class="hero min-h-screen bg-base-200">
     <div class="hero-content flex-col lg:flex-row-reverse">
       <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
         <form class="card-body">
@@ -30,12 +33,11 @@ const LoginPage = () => {
         </form>
       </div>
     </div>
-  </div>`
-    const main = document.querySelector('main');
-    main.innerHTML = html;
+  </div>`;
+  const main = document.querySelector('main');
+  main.innerHTML = html;
 
-    login();
-  }
-  
-  export default LoginPage;
-  
+  login();
+};
+
+export default LoginPage;

@@ -1,8 +1,11 @@
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 import Navbar from '../Navbar/Navbar';
+import { clearPage } from '../../utils/render';
 
 const HomePage = () => {
+  clearPage();
+
   const html = `
   <div class="grid grid-cols-4">
     <div class="px-2 py-10 column-span-1">

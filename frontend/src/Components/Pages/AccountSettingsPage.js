@@ -1,6 +1,9 @@
 import { accountInfo } from '../../Domain/AccountLibrary';
+import { clearPage } from '../../utils/render';
 
 const AccountSettingsPage = () => {
+  clearPage();
+
   const html = `
   <div class="flex-auto">
     <div class="px-5 py-5">
@@ -22,7 +25,6 @@ const AccountSettingsPage = () => {
   main.innerHTML = html;
 
   accountInfo();
-  
 };
 
 export default AccountSettingsPage;
