@@ -27,7 +27,7 @@ const Navbar = () => {
   const navbarAuth = `
   <div class="navbar bg-white border-b-2 border-gray-200">
     <div class="flex-1">
-      <a class="btn btn-ghost normal-case text-xl animate-pulse animate-infinite animate-duration-[2000ms] animate-delay-0">SocialSync</a>
+    <a href="#" data-uri="/" class="btn btn-ghost normal-case text-xl animate-pulse animate-infinite animate-duration-[2000ms] animate-delay-0">SocialSync</a>
     </div>
     
     <div class="flex-none">

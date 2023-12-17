@@ -68,7 +68,7 @@ async function register() {
       const newData = {
         email,
         username,
-        // password,
+        password,
       };
 
       try {
