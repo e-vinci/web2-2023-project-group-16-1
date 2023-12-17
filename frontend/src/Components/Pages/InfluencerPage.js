@@ -53,7 +53,7 @@ const InfluencerPage = () => {
       },
     };
 
-    const response = await fetch('/api/dbUtils', options);
+    const response = await fetch(`${process.env.API_BASE_URL}/dbUtils`, options);
 
     if (!response.ok) {
       throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
