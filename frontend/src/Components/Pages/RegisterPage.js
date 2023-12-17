@@ -4,8 +4,9 @@ import { clearPage } from '../../utils/render';
 const RegisterPage = () => {
   clearPage();
 
-  const html = `<div class="hero min-h-screen bg-base-200">
-  <div class="hero-content flex-col lg:flex-row-reverse">
+  const html = `
+<div class="hero bg-base-200">
+  <div class="hero-content w-1/2 lg:flex-row-reverse">
     <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <form class="card-body">
         <div class="form-control">
