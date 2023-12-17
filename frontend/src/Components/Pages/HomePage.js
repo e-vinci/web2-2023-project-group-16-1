@@ -17,18 +17,11 @@ const HomePage = () => {
 
           <!-- First section -->
           <div class="border-b">
-            <div class="p-4 bg-gray-200">
+            <div  class="p-4 bg-gray-200">
               Trier par influenceur suivi
             </div>
-            <div class="p-4">
-              <div>
-                <input type="radio" class="form-radio h-5 w-5 text-blue-600" name="influencers" value="option1" checked>
-                <span class="ml-2">Mister MV</span>
-              </div>
-              <div>
-                <input type="radio" class="form-radio h-5 w-5 text-blue-600" name="influencers" value="option2">
-                <span class="ml-2">Zerator</span>
-              </div>
+            <div id="influencer" class="p-4">
+              
             </div>
           </div>
 
@@ -47,14 +40,14 @@ const HomePage = () => {
 
         <!-- Bouton de filtre -->
         <div class ="py-5" >
-          <button class="btn btn-neutral">Filtrer</button>
+          <button id="filterbtn" class="btn btn-neutral">Filtrer</button>
         </div>
       </div>
     </div>
 
     <!-- Fil d'actualité -->
     <div id="feed"  class ="col-span-3 py-10 px-5">
-    
+      <a id="feedLink" class="twitter-timeline" data-lang="en" data-width="1000" data-height="1000" data-theme="dark"></a> 
     </div>
   </div>`;
 
@@ -90,9 +83,78 @@ async function homeInfo() {
 
   randomFeed();
 
-  filters();
+  filterInfluencer();
+  filterPlatform();
 
   searchBare(influencersList);
+
+  const btn = document.getElementById('filterbtn');
+
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const radioInputs = document.querySelectorAll('input[type="radio"]');
+
+    const params = {};
+
+    radioInputs.forEach((radioInput) => {
+      if (radioInput.checked) {
+        const parentDiv = radioInput.closest('div');
+        const spanElement = parentDiv.querySelector('span');
+
+        const spanValue = spanElement.innerText;
+        if (radioInput.name === 'social_networks') {
+          params.platform = spanValue;
+        }
+        if (radioInput.name === 'influencer') {
+          params.influencer = spanValue;
+        }
+      }
+    });
+
+    let inf;
+
+    influencersList.forEach((influencer) => {
+      // eslint-disable-next-line no-empty
+      if (influencer.nom === params.influencer) {
+        inf = influencer;
+      }
+    });
+
+    try {
+      const options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await fetch(`/api/dbUtils/${inf.id_influencer}`, options);
+
+      if (!response.ok) {
+        throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+      }
+      const influencer = await response.json();
+
+      let index = 0;
+      let url;
+
+      influencer.platforms.forEach((platform) => {
+        if (platform === params.platform) {
+          url = influencer.urls[index];
+        }
+        index += 1;
+      });
+
+      const anchorElement = document.getElementById('feedLink');
+      anchorElement.innerText = `${params.platform} by ${params.influencer}`;
+      anchorElement.setAttribute('href', `${url}`);
+
+      const div = document.getElementById('feed');
+      div.appendChild(anchorElement);
+    } catch (err) {
+      console.error('error: ', err);
+    }
+  });
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -132,20 +194,56 @@ async function randomFeed() {
 }
 
 function creatAnchor(influencer) {
-  const anchorElement = document.createElement('a');
+  const anchorElement = document.getElementById('feedLink');
   anchorElement.innerText = `${influencer.platform} by ${influencer.influencer}`;
   anchorElement.setAttribute('href', `${influencer.url}`);
-  anchorElement.setAttribute('class', `twitter-timeline`);
-  anchorElement.setAttribute('data-lang', `en`);
-  anchorElement.setAttribute('data-width', `1000`);
-  anchorElement.setAttribute('data-height', `1000`);
-  anchorElement.setAttribute('data-theme', `dark`);
 
   const div = document.getElementById('feed');
   div.appendChild(anchorElement);
 }
 
-async function filters() {
+async function filterInfluencer() {
+  try {
+    const user = getAuthenticatedUser();
+
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: user.token,
+      },
+    };
+    const response = await fetch(`/api/users/`, options);
+
+    if (!response.ok) {
+      throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    }
+    const listSubscription = await response.json();
+
+    const div = document.getElementById('influencer');
+
+    listSubscription.forEach((subscription) => {
+      const subdiv = document.createElement('div');
+
+      const input = document.createElement('input');
+      input.className = 'form-radio h-5 w-5 text-blue-600';
+      input.type = 'radio';
+      input.name = 'influencer';
+
+      const span = document.createElement('span');
+      span.innerText = subscription.influencer;
+      span.className = 'ml-2';
+
+      subdiv.appendChild(input);
+      subdiv.appendChild(span);
+      div.appendChild(subdiv);
+    });
+  } catch (err) {
+    console.error('error: ', err);
+  }
+}
+
+async function filterPlatform() {
   try {
     const options = {
       method: 'GET',
@@ -168,12 +266,6 @@ async function filters() {
       input.className = 'form-radio h-5 w-5 text-blue-600';
       input.type = 'radio';
       input.name = 'social_networks';
-
-      input.addEventListener('click', async (e) => {
-        e.preventDefault();
-
-        // get the value and chnage the feed
-      });
 
       const span = document.createElement('span');
       span.innerText = platform.nom;

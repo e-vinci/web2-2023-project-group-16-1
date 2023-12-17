@@ -37,7 +37,7 @@ const RegisterPage = () => {
 
         <div id="errordiv">
         </div>
-
+          
         <div class="form-control mt-6">
           <button id="register" class="btn btn-primary">Register</button>
         </div>

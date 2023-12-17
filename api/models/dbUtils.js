@@ -28,6 +28,7 @@ async function getInfluencers() {
 
 async function getInfluencerInformation(idInfluenceur) {
   const platformList = [];
+  const urlList = [];
 
   try {
     if (!client) {
@@ -49,9 +50,11 @@ async function getInfluencerInformation(idInfluenceur) {
 
     res.rows.forEach((influencerObject) => {
       platformList.push(influencerObject.platform);
+      urlList.push(influencerObject.url);
     });
 
     influencerInfo.platforms = platformList;
+    influencerInfo.urls = urlList;
 
     return influencerInfo;
   } catch (err) {
