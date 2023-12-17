@@ -61,7 +61,8 @@ async function register() {
     if (password !== passwordConfirm) {
       document.getElementById('errordiv').innerText = 'The passwords do not match';
     } else if (!gdprCheckbox.checked) {
-      document.getElementById('errordiv').innerText = 'You forgot to accept the RGPD !';
+      document.getElementById('errordiv').innerText = 'You forgot to accept the GDPR !';
+      document.getElementById('errordiv').className = 'bg-red-500 text-white p-4 rounded-md';
     } else {
       // Creation of a new json object
       const newData = {

@@ -39,7 +39,7 @@ const RegisterPage = () => {
           </label>
         </div>
 
-        <div id="errordiv">
+        <div id="errordiv" >
         </div>
           
         <div class="form-control mt-6">

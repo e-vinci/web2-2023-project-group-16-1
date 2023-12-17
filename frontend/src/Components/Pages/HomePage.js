@@ -191,7 +191,7 @@ async function randomFeed() {
   } else {
     const div = document.getElementById('feed');
     const subdiv = document.createElement('div');
-    subdiv.innerText = 'Log in to see a feed';
+    subdiv.innerText = 'Log in or register to see a feed';
     subdiv.className =
       'bg-white border-l-4 border-green-500 text-green-700 px-4 py-3 shadow-md rounded-md items-center inline-block rounded animate-wiggle animate-infinite animate-duration-1000 animate-delay-0';
     div.appendChild(subdiv);
