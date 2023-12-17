@@ -50,7 +50,7 @@ const HomePage = () => {
     
     <!-- Fil d'actualité -->
     <div id="feed"  class ="col-span-3 py-10 px-5">
-      <a id="feedLink" class="twitter-timeline" data-lang="en" data-width="1000" data-height="1000" data-theme="dark"></a> 
+      <a id="feedLink" class="twitter-timeline" href="" data-width="1000" data-height="1000"></a> 
     </div>
   </div>`;
 
@@ -131,7 +131,10 @@ async function homeInfo() {
           'Content-Type': 'application/json',
         },
       };
-      const response = await fetch(`${process.env.API_BASE_URL}/dbUtils/${inf.id_influencer}`, options);
+      const response = await fetch(
+        `${process.env.API_BASE_URL}/dbUtils/${inf.id_influencer}`,
+        options,
+      );
 
       if (!response.ok) {
         throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
@@ -150,7 +153,7 @@ async function homeInfo() {
 
       const anchorElement = document.getElementById('feedLink');
       anchorElement.innerText = `${params.platform} by ${params.influencer}`;
-      anchorElement.setAttribute('href', `${url}`);
+      anchorElement.href = url;
 
       const div = document.getElementById('feed');
       div.appendChild(anchorElement);
@@ -201,7 +204,7 @@ async function randomFeed() {
 function createAnchor(influencer) {
   const anchorElement = document.getElementById('feedLink');
   anchorElement.innerText = `${influencer.platform} by ${influencer.influencer}`;
-  anchorElement.setAttribute('href', `${influencer.url}`);
+  anchorElement.href = `${influencer.url}?ref_src=twsrc%5Etfw`;
 
   const div = document.getElementById('feed');
   div.appendChild(anchorElement);
