@@ -12,7 +12,7 @@ const Navbar = () => {
   const navbar = `
   <div class="navbar bg-base-100">
   <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl">SocialSync</a>
+    <a href="#" data-uri="/" class="btn btn-ghost normal-case text-xl animate-pulse animate-infinite animate-duration-[2000ms] animate-delay-0">SocialSync</a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
@@ -26,7 +26,7 @@ const Navbar = () => {
   const navbarAuth = `
   <div class="navbar bg-base-100">
   <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl">SocialSync</a>
+    <a class="btn btn-ghost normal-case text-xl animate-pulse animate-infinite animate-duration-[2000ms] animate-delay-0">SocialSync</a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">

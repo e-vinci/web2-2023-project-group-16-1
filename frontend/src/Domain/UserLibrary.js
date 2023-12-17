@@ -59,9 +59,9 @@ async function register() {
     const gdprCheckbox = document.getElementById('gdprCheckbox');
 
     if (password !== passwordConfirm) {
-      document.getElementById('errordiv').innerText = '2 different password';
+      document.getElementById('errordiv').innerText = 'The passwords do not match';
     } else if (!gdprCheckbox.checked) {
-      document.getElementById('errordiv').innerText = 'I have frogoten to accept the RGPD';
+      document.getElementById('errordiv').innerText = 'You forgot to accept the RGPD !';
     } else {
       // Creation of a new json object
       const newData = {

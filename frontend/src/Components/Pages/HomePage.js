@@ -47,7 +47,7 @@ const HomePage = () => {
         </div>
       </div>
     </div>
-
+    
     <!-- Fil d'actualité -->
     <div id="feed"  class ="col-span-3 py-10 px-5">
       <a id="feedLink" class="twitter-timeline" data-lang="en" data-width="1000" data-height="1000" data-theme="dark"></a> 
@@ -184,14 +184,15 @@ async function randomFeed() {
       const influencer = listSubscription[randomNumber];
 
       creatAnchor(influencer);
-    } catch (err) {
+    } catch (err) { 
       console.error('error: ', err);
     }
     // eslint-disable-next-line no-empty
   } else {
     const div = document.getElementById('feed');
     const subdiv = document.createElement('div');
-    subdiv.innerText = 'you are not loged in !';
+    subdiv.innerText = 'Log in to see a feed';
+    subdiv.className = 'bg-white border-l-4 border-green-500 text-green-700 px-4 py-3 shadow-md rounded-md items-center inline-block rounded animate-wiggle animate-infinite animate-duration-1000 animate-delay-0';
     div.appendChild(subdiv);
   }
 }

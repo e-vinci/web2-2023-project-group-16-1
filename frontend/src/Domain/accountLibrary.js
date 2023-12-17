@@ -87,7 +87,6 @@ async function subscription(user) {
 
       index += 1;
     });
-
     div.appendChild(divSubscriptions);
   } catch (err) {
     // eslint-disable-next-line no-console
