@@ -10,7 +10,7 @@ async function influencerInfo(influencerId) {
         'Content-Type': 'application/json',
       },
     };
-    const response = await fetch(`/api/dbUtils/${influencerId}`, options);
+    const response = await fetch(`${process.env.API_BASE_URL}/dbUtils/${influencerId}`, options);
 
     if (!response.ok) {
       throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
@@ -61,7 +61,7 @@ async function influencerInfo(influencerId) {
             },
           };
 
-          const response2 = await fetch(`/api/users/subscribe`, options2);
+          const response2 = await fetch(`${process.env.API_BASE_URL}/users/subscribe`, options2);
 
           if (!response2.ok) {
             throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);

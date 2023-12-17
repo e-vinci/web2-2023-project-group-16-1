@@ -30,7 +30,7 @@ async function buttonDelete(user) {
         },
       };
 
-      const response = await fetch(`/api/users/deleteUser`, options);
+      const response = await fetch(`${process.env.API_BASE_URL}/users/deleteUser`, options);
 
       if (!response.ok) {
         throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
@@ -55,7 +55,7 @@ async function subscription(user) {
         Authorization: user.token,
       },
     };
-    const response = await fetch(`/api/users/`, options);
+    const response = await fetch(`${process.env.API_BASE_URL}/users/`, options);
     const listSubscription = await response.json();
 
     const div = document.getElementById('subscriptions');

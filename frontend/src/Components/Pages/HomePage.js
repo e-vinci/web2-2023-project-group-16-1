@@ -73,7 +73,7 @@ async function homeInfo() {
       },
     };
 
-    const response = await fetch('/api/dbUtils', options);
+    const response = await fetch(`${process.env.API_BASE_URL}/dbUtils`, options);
 
     if (!response.ok) {
       throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
@@ -131,7 +131,7 @@ async function homeInfo() {
           'Content-Type': 'application/json',
         },
       };
-      const response = await fetch(`/api/dbUtils/${inf.id_influencer}`, options);
+      const response = await fetch(`${process.env.API_BASE_URL}/dbUtils/${inf.id_influencer}`, options);
 
       if (!response.ok) {
         throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
@@ -173,7 +173,7 @@ async function randomFeed() {
           Authorization: user.token,
         },
       };
-      const response = await fetch(`/api/users/`, options);
+      const response = await fetch(`${process.env.API_BASE_URL}/users/`, options);
 
       if (!response.ok) {
         throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
@@ -218,7 +218,7 @@ async function filterInfluencer() {
         Authorization: user.token,
       },
     };
-    const response = await fetch(`/api/users/`, options);
+    const response = await fetch(`${process.env.API_BASE_URL}/users/`, options);
 
     if (!response.ok) {
       throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
@@ -256,7 +256,7 @@ async function filterPlatform() {
         'Content-Type': 'application/json',
       },
     };
-    const response = await fetch(`/api/dbUtils2/`, options);
+    const response = await fetch(`${process.env.API_BASE_URL}/dbUtils2/`, options);
 
     if (!response.ok) {
       throw new Error(`fetch error : ${response.status} : ${response.statusText}`);

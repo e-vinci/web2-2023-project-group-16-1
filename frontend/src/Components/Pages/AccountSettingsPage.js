@@ -1,4 +1,4 @@
-import { accountInfo } from '../../Domain/AccountLibrary';
+import { accountInfo } from '../../Domain/accountLibrary';
 import { clearPage } from '../../utils/render';
 
 const AccountSettingsPage = () => {
