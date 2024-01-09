@@ -1,0 +1,73 @@
+@baseUrl = http://localhost:3000
+
+### Login jane_smith
+# @name jane_smith
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "email":"jane.smith@email.com",
+    "password":"12345"
+}
+
+### subscribe to Zerator
+POST {{baseUrl}}/users/subscribe
+Content-Type: application/json
+Authorization: {{jane_smith.response.body.token}}
+
+{
+    "influencer":"Zerator",
+    "platform":"Twitter / X"
+}
+
+### list of subscription
+GET {{baseUrl}}/users/
+Content-Type: application/json
+Authorization: {{jane_smith.response.body.token}}
+
+### unsubscribe to Zerator
+POST {{baseUrl}}/users/unsubscribe
+Content-Type: application/json
+Authorization: {{jane_smith.response.body.token}}
+
+{
+    "influencer":"Zerator",
+    "platform":"Twitter / X"
+}
+
+### Login alex_jones
+# @name alex_jones
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "email":"alex.jones@email.com",
+    "password":"12345"
+}
+
+### list of subscription
+GET {{baseUrl}}/users/
+Content-Type: application/json
+Authorization: {{alex_jones.response.body.token}}
+
+### subscribe to MisterMV
+POST {{baseUrl}}/users/subscribe
+Content-Type: application/json
+Authorization: {{alex_jones.response.body.token}}
+
+{
+    "influencer":"MisterMV",
+    "platform":"Twiter / X"
+}
+
+### list of subscription
+GET {{baseUrl}}/users/
+Content-Type: application/json
+Authorization: {{alex_jones.response.body.token}}
+
+### delet alex_jones and all his info
+POST {{baseUrl}}/users/deleteUser
+Content-Type: application/json
+Authorization: {{alex_jones.response.body.token}}
+
+{}

@@ -1,38 +1,50 @@
 @baseUrl = http://localhost:3000
 
-### Try to login an unknow user
-POST {{baseUrl}}/auths/login
-Content-Type: application/json
-
-{
-    "username":"unknown",
-    "password":"admin"
-}
-
-### Login the default admin
-POST {{baseUrl}}/auths/login
-Content-Type: application/json
-
-{
-    "username":"admin",
-    "password":"admin"
-}
-
-
-### Create the manager user
+### Create alex_jones 
 POST {{baseUrl}}/auths/register
 Content-Type: application/json
 
 {
-    "username":"manager",
-    "password":"manager"
+    "username":"alex_jones",
+    "email":"alex.jones@email.com",
+    "password":"12345",
+    "passwordConfirm":"12345"
 }
 
-### Login the manager user
+### Create a user that allredy existe
+POST {{baseUrl}}/auths/register
+Content-Type: application/json
+
+{
+    "username":"john_doe",
+    "email":"john.doe@email.com",
+    "password":"12345",
+    "passwordConfirm":"12345"
+}
+
+### Login jane_smith with wrong password
 POST {{baseUrl}}/auths/login
 Content-Type: application/json
 
 {
-    "username":"manager",
-    "password":"manager"
+    "email":"alex.jones@email.com",
+    "password":"12346"
+}
+
+### Login alex_jones
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "email":"alex.jones@email.com",
+    "password":"12345"
+}
+
+### Login jane_smith
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "email":"jane.smith@email.com",
+    "password":"12345"
 }

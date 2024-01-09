@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:3000
+
+### get all influencers
+GET {{baseUrl}}/dbUtils/
+Content-Type: application/json
+
+### get influencer 1
+GET {{baseUrl}}/dbUtils/1
+Content-Type: application/json

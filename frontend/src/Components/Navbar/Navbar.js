@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import { Navbar as BootstrapNavbar } from 'bootstrap';
+import { isAuthenticated } from "../../utils/auths"; 
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -11,37 +10,36 @@ import { Navbar as BootstrapNavbar } from 'bootstrap';
 const Navbar = () => {
   const navbarWrapper = document.querySelector('#navbarWrapper');
   const navbar = `
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Add your brand here</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#" data-uri="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/game">Game</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" data-uri="/new">New Page</a>
-              </li>                        
-            </ul>
-          </div>
-        </div>
-      </nav>
+  <div class="navbar bg-white border-b-2 border-gray-200">
+    <div class="flex-1">
+      <a href="#" data-uri="/" class="btn btn-ghost normal-case text-xl animate-pulse animate-infinite animate-duration-[2000ms] animate-delay-0">SocialSync</a>
+    </div>
+
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1">
+        <li><a href="#" data-uri="/">Home</a></li>
+        <li><a href="#" data-uri="/login">Login</a></li>
+        <li><a href="#" data-uri="/register">Register</a></li>
+      </ul>
+    </div>
+</div>
   `;
-  navbarWrapper.innerHTML = navbar;
+  const navbarAuth = `
+  <div class="navbar bg-white border-b-2 border-gray-200">
+    <div class="flex-1">
+    <a href="#" data-uri="/" class="btn btn-ghost normal-case text-xl animate-pulse animate-infinite animate-duration-[2000ms] animate-delay-0">SocialSync</a>
+    </div>
+    
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1">
+        <li><a href="#" data-uri="/">Home</a></li>
+        <li><a href="#" data-uri="/logout">Logout</a></li>
+        <li><a href="#" data-uri="/settings">Account</a></li>
+      </ul>
+    </div>
+</div>
+  `
+  navbarWrapper.innerHTML = isAuthenticated() ? navbarAuth : navbar;
 };
 
 export default Navbar;
